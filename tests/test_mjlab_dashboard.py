@@ -8,10 +8,10 @@ import numpy as np
 import pytest
 
 pytest.importorskip("stable_baselines3")
-from viser_robotics.rl.config import MjlabTrainConfig, parse_config
-from viser_robotics.rl.dashboard import ControlRoom
-from viser_robotics.rl.storage import read_json
-from viser_robotics.rl.supervisor import RunSupervisor
+from mujoco_viser_usage.rl.config import MjlabTrainConfig, parse_config
+from mujoco_viser_usage.rl.dashboard import ControlRoom
+from mujoco_viser_usage.rl.storage import read_json
+from mujoco_viser_usage.rl.supervisor import RunSupervisor
 
 NATIVE_PYTHON = (
     Path(__file__).resolve().parents[1] / "integrations/mjlab/.venv/bin/python"

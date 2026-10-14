@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 pytest.importorskip("gymnasium")
-from viser_robotics.rl.comparison import ComparisonViewer
+from mujoco_viser_usage.rl.comparison import ComparisonViewer
 
 
 def test_comparison_pause_seek_and_terminal_hold(tmp_path):

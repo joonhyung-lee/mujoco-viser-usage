@@ -3,7 +3,7 @@
 - The project layout and robotics use cases are inspired by
   https://github.com/joonhyung-lee/mujoco-robotics-usage . Its parser and
   notebook code have not been copied into this project.
-- `src/viser_robotics/scenes/manipulation/ur5e/ur5e.xml` and the arm `.obj` meshes in `assets/` are copied from
+- `assets/manipulation/ur5e/ur5e.xml` and the arm `.obj` meshes in `assets/` are copied from
   Google DeepMind MuJoCo Menagerie, `universal_robots_ur5e`, local checkout
   commit `71f066ad0be9cd271f7ed58c030243ef157af9f4`.
   https://github.com/google-deepmind/mujoco_menagerie/tree/main/universal_robots_ur5e

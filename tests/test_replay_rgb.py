@@ -6,7 +6,7 @@ import mujoco
 import numpy as np
 import viser
 
-from viser_robotics.rl.rgb import ReplayCameras
+from mujoco_viser_usage.rl.rgb import ReplayCameras
 
 
 def test_seek_drops_stale_images_and_renderer_stays_on_one_thread(monkeypatch):

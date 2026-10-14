@@ -1,8 +1,8 @@
 """Collision meshes must also render as outward-facing closed surfaces."""
 
-from viser_robotics.scenes import resolve_scene
-from viser_robotics.simulation import Simulation
-from viser_robotics.viewer import geometry_mesh
+from mujoco_viser_usage.scenes import resolve_scene
+from mujoco_viser_usage.simulation import Simulation
+from mujoco_viser_usage.viewer import geometry_mesh
 
 
 def test_ramp_faces_point_outward():

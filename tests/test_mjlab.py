@@ -9,11 +9,11 @@ import torch
 from mjlab.envs import ManagerBasedRlEnv
 from mjlab.managers.recorder_manager import RecorderTermCfg
 
-from viser_robotics.mjlab import mdp
-from viser_robotics.mjlab.assets import export_scene
-from viser_robotics.mjlab.recording import RolloutRecorder
-from viser_robotics.mjlab.tasks import environment_config
-from viser_robotics.rl.storage import read_jsonl
+from mujoco_viser_usage.mjlab import mdp
+from mujoco_viser_usage.mjlab.assets import export_scene
+from mujoco_viser_usage.mjlab.recording import RolloutRecorder
+from mujoco_viser_usage.mjlab.tasks import environment_config
+from mujoco_viser_usage.rl.storage import read_jsonl
 
 
 @pytest.mark.parametrize(
@@ -107,7 +107,7 @@ def test_reach_shaping_rewards_completion_instead_of_waiting():
 
 
 def test_go2_residual_trot_records_base_and_feet(tmp_path):
-    from viser_robotics.mjlab import go2
+    from mujoco_viser_usage.mjlab import go2
 
     cfg = environment_config("go2", num_envs=2, seed=5)
     cfg.episode_length_s = 0.08
@@ -163,8 +163,8 @@ def test_go2_residual_trot_records_base_and_feet(tmp_path):
 
 
 def test_go2_gait_matches_scripted_reference():
-    from viser_robotics.mjlab import go2
-    from viser_robotics.scenes.locomotion.go2_task import gait_targets as reference
+    from mujoco_viser_usage.mjlab import go2
+    from mujoco_viser_usage.scenes.go2_task import gait_targets as reference
 
     times = torch.tensor([0.0, 0.37, 1.2, 2.55])
     out = go2.gait_targets(times, torch.full((4,), 0.15))

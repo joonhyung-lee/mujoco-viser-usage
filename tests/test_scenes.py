@@ -4,9 +4,9 @@ import mujoco
 import numpy as np
 import pytest
 
-from viser_robotics.scenes import SCENES, resolve_scene
-from viser_robotics.scenes.maze import route
-from viser_robotics.viser_parser import ViserParser
+from mujoco_viser_usage.scenes import SCENES, resolve_scene
+from mujoco_viser_usage.scenes.maze import route
+from mujoco_viser_usage.viser_parser import ViserParser
 
 
 @pytest.mark.parametrize("scene", SCENES, ids=lambda scene: scene.id)

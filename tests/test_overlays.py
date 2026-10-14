@@ -1,7 +1,7 @@
 import mujoco
 import numpy as np
 
-from viser_robotics.overlays import contact_vectors, path_anchors, tube_mesh
+from mujoco_viser_usage.overlays import contact_vectors, path_anchors, tube_mesh
 
 
 def test_force_arrows_use_world_frame_and_physical_newtons():

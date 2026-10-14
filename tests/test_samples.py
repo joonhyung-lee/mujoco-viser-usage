@@ -1,6 +1,6 @@
 import numpy as np
 
-from viser_robotics import ViserParser
+from mujoco_viser_usage import ViserParser
 
 
 def test_default_runs_and_paused_option():

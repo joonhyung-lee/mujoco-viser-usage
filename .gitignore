@@ -7,8 +7,6 @@ MUJOCO_LOG.TXT
 dist/
 artifacts/
 
-rl/runs/
-
-rl/mjlab-smoke/
+runs/
 logs/
 .ruff_cache/

@@ -5,7 +5,7 @@ room, and a native [mjlab](https://github.com/mujocolab/mjlab) (MuJoCo-Warp) bac
 all rendered with [Viser](https://github.com/nerfstudio-project/viser).
 
 **[Project page](https://joonhyung-lee.github.io/mujoco-viser-usage/)** ·
-[Architecture](docs/architecture.md) · [mjlab backend](docs/mjlab.md) · [RL](rl/README.md)
+[Architecture](docs/architecture.md) · [mjlab backend](docs/mjlab.md) · [RL](docs/rl.md)
 
 <p align="center">
   <img src="docs/assets/pick-place.png" width="100%" alt="UR5e pick & place with ego RGB, contact forces, and tracked trajectory">
@@ -24,7 +24,7 @@ uv run mujoco-viser-usage navigation/husky_mixed --demo
 ```
 
 ```python
-from viser_robotics import ViserParser
+from mujoco_viser_usage import ViserParser
 
 with ViserParser(viewer=False) as robot:
     robot.set_control("shoulder_pan", -1.3)
@@ -82,10 +82,10 @@ Same tasks on MuJoCo-Warp with RSL-RL. Isolated environment (mjlab pins MuJoCo 3
 
 ```bash
 uv sync --project integrations/mjlab
-uv run --project integrations/mjlab python -m viser_robotics.mjlab train \
+uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
   Viser-Go2-Velocity-v0 --gpu-ids '[0]' --env.scene.num-envs 512
-uv run --project integrations/mjlab python -m viser_robotics.mjlab.evaluate <run-dir>
-uv run python -m viser_robotics.rl.comparison rl/runs/<comparison-dir>
+uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab.evaluate <run-dir>
+uv run python -m mujoco_viser_usage.rl.comparison runs/<comparison-dir>
 ```
 
 Native tasks: `Viser-Aloha-{Reach,Lift,Place,Bimanual}-v0`, `Viser-Go2-Velocity-v0`.
@@ -106,18 +106,19 @@ timelines, EEF trails, recorded contact forces, and reconstructed wrist RGB.
 ## Layout
 
 ```text
-src/viser_robotics/
-  viser_parser.py   public entry point        scenes/{manipulation,locomotion,navigation}/
-  simulation.py     model, control, physics   rl/        SB3 PPO, dashboard, comparison viewer
-  viewer.py         Viser scene + camera      mjlab/     native Warp tasks, recorder, evaluate
-  overlays.py       forces, RGB, trajectory   integrations/mjlab/   pinned mjlab environment
+assets/               robot MJCF + meshes (manipulation/ locomotion/ navigation/), RL configs
+docs/                 project page, architecture, mjlab, RL notes
+integrations/mjlab/   pinned mjlab / MuJoCo-Warp environment
+mujoco_viser_usage/   package: viewer, simulation, scenes, rl/, mjlab/, tools/
+notebooks/            runnable examples
+tests/
 ```
 
 ## Validate
 
 ```bash
 uv run pytest -q
-uv run ruff check src tests examples scripts
+uv run ruff check .
 uv run --project integrations/mjlab --with pytest python -m pytest tests/test_mjlab.py -q
 ```
 

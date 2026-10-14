@@ -21,7 +21,7 @@ that does not establish GPU throughput or policy quality.
 ## Dashboard
 
 ```sh
-uv run mujoco-viser-rl --runs rl/runs --port 8090
+uv run mujoco-viser-rl --runs runs --port 8090
 ```
 
 Open http://localhost:8090. Choose an ALOHA or Go2 scene, then **Training → Settings →
@@ -80,19 +80,19 @@ is the trot with zero residual.
 Small CPU integration smoke test (not a trained manipulation policy):
 
 ```sh
-uv run --project integrations/mjlab python -m viser_robotics.mjlab train \
+uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
   Viser-Aloha-Reach-v0 --gpu-ids '[]' --env.scene.num-envs 2 \
   --agent.num-steps-per-env 8 --agent.max-iterations 2 \
   --agent.algorithm.num-mini-batches 2 --agent.algorithm.num-learning-epochs 1 \
-  --log-root rl/mjlab-smoke
+  --log-root runs/mjlab-smoke
 ```
 
 Starting configuration for a GPU run; tune environment count to available memory:
 
 ```sh
-uv run --project integrations/mjlab python -m viser_robotics.mjlab train \
+uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
   Viser-Aloha-Reach-v0 --gpu-ids '[0]' --env.scene.num-envs 512 \
-  --agent.max-iterations 1000 --log-root rl/runs/mjlab
+  --agent.max-iterations 1000 --log-root runs/mjlab
 ```
 
 `Viser-Go2-Velocity-v0` accepts the same arguments; the CLI registration uses the
@@ -109,20 +109,20 @@ experiment artifacts: load artifacts from trusted runs.
 Use the timestamped run directory printed by training:
 
 ```sh
-uv run --project integrations/mjlab python -m viser_robotics.mjlab.evaluate \
-  rl/mjlab-smoke/viser_aloha/<timestamp> --seeds 1000003 1000004
+uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab.evaluate \
+  runs/mjlab-smoke/viser_aloha/<timestamp> --seeds 1000003 1000004
 ```
 
 Evaluation uses the saved environment configuration, one world, deterministic
 policy inference, and explicit resets. It verifies exact initial qpos and goals
 match between scripted and policy runs. The newest numbered checkpoint is chosen
-unless `--checkpoint PATH` is supplied. It writes a new `rl/runs/*mjlab-compare*/`
+unless `--checkpoint PATH` is supplied. It writes a new `runs/*mjlab-compare*/`
 directory and `comparison.json` with checkpoint SHA-256, outcomes, force/height
 measurements, and event timestamps. Run with the same code revision as training.
 
 ```sh
-uv run python -m viser_robotics.rl.comparison \
-  rl/runs/<comparison-directory> --port 8091
+uv run python -m mujoco_viser_usage.rl.comparison \
+  runs/<comparison-directory> --port 8091
 ```
 
 Open http://localhost:8091. Both views share the same simulation-time cursor.
@@ -178,7 +178,7 @@ uv run pytest tests/test_mjlab_dashboard.py tests/test_playback.py tests/test_da
 Physical baseline verification (longer than the smoke tests):
 
 ```sh
-uv run --project integrations/mjlab python scripts/check_mjlab_baselines.py
+uv run --project integrations/mjlab python -m mujoco_viser_usage.tools.check_mjlab_baselines
 ```
 
 On the local CPU, seed 1000003 completed reach, lift, place, and bimanual through

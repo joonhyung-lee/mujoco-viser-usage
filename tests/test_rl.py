@@ -11,12 +11,12 @@ import psutil
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 
-from viser_robotics.rl.config import TrainConfig
-from viser_robotics.rl.envs import RobotEnv
-from viser_robotics.rl.evaluate import evaluate
-from viser_robotics.rl.storage import EpisodeRecorder, read_json, read_jsonl
-from viser_robotics.rl.supervisor import RunSupervisor
-from viser_robotics.rl.train import train
+from mujoco_viser_usage.rl.config import TrainConfig
+from mujoco_viser_usage.rl.envs import RobotEnv
+from mujoco_viser_usage.rl.evaluate import evaluate
+from mujoco_viser_usage.rl.storage import EpisodeRecorder, read_json, read_jsonl
+from mujoco_viser_usage.rl.supervisor import RunSupervisor
+from mujoco_viser_usage.rl.train import train
 
 
 @pytest.mark.parametrize("task", ["go2_velocity", "aloha_reach", "aloha_pick_place"])

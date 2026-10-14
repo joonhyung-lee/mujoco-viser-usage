@@ -8,11 +8,11 @@ import numpy as np
 import pytest
 
 pytest.importorskip("stable_baselines3")
-from viser_robotics.rl.dashboard import ControlRoom
-from viser_robotics.rl.playback import PlaybackClock, RolloutPlayer, sample_trace
-from viser_robotics.rl.storage import append_json, write_npz
-from viser_robotics.scenes import resolve_scene
-from viser_robotics.simulation import Simulation
+from mujoco_viser_usage.rl.dashboard import ControlRoom
+from mujoco_viser_usage.rl.playback import PlaybackClock, RolloutPlayer, sample_trace
+from mujoco_viser_usage.rl.storage import append_json, write_npz
+from mujoco_viser_usage.scenes import resolve_scene
+from mujoco_viser_usage.simulation import Simulation
 
 
 def trace_fixture():
@@ -36,7 +36,7 @@ def test_dashboard_replay_has_no_recording_interval_stutter():
     room._apply_frame = lambda frame: seen.append(float(frame["qpos"][0]))
     for tick in range(25):
         with patch(
-            "viser_robotics.rl.dashboard.time.monotonic", return_value=tick / 30
+            "mujoco_viser_usage.rl.dashboard.time.monotonic", return_value=tick / 30
         ):
             room._refresh_frame()
     np.testing.assert_allclose(np.diff(seen), 1 / 30, atol=1e-12)

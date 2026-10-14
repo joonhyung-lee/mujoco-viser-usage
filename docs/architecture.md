@@ -89,7 +89,7 @@ reduced maximum depth to 0.074 mm while preserving grasp, lift, and placement.
 These are demo tuning values, not a calibrated RG2 hardware specification.
 
 The regression now checks penetration below 1 mm at every physics step through
-the complete task. `uv run python scripts/check_contacts.py` reports the worst
+the complete task. `uv run python -m mujoco_viser_usage.tools.check_contacts` reports the worst
 contact pairs, times, and phases and fails above that limit. The State folder shows
 current maximum penetration; View can display contact points.
 
@@ -181,7 +181,7 @@ walking sample, not a learned general maze-navigation policy.
 
 ## RL process boundaries
 
-See `rl/README.md` for commands, task definitions and artifact layouts. The Viser
+See `docs/rl.md` for commands, task definitions and artifact layouts. The Viser
 control room owns a `RunSupervisor`, which launches a trainer in a new process
 session. The trainer owns a shared SB3 PPO policy and `SubprocVecEnv` children
 using the spawn start method. Each child owns its own `RobotEnv` model/data and

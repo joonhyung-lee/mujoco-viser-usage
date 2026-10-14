@@ -4,10 +4,10 @@ import numpy as np
 import pytest
 
 pytest.importorskip("gymnasium")
-from viser_robotics.rl.config import TrainConfig
-from viser_robotics.rl.envs import RobotEnv
-from viser_robotics.scenes import TERRAINS, resolve_scene
-from viser_robotics.viser_parser import ViserParser
+from mujoco_viser_usage.rl.config import TrainConfig
+from mujoco_viser_usage.rl.envs import RobotEnv
+from mujoco_viser_usage.scenes import TERRAINS, resolve_scene
+from mujoco_viser_usage.viser_parser import ViserParser
 
 
 @pytest.mark.parametrize("terrain", TERRAINS)

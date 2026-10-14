@@ -10,9 +10,9 @@ requires-python = ">=3.12"
 dependencies = ["mujoco>=3.3,<4", "viser>=1.0,<2", "numpy>=2,<3", "trimesh>=4.6,<5"]
 
 [project.scripts]
-mujoco-viser-usage = "viser_robotics.app:main"
-mujoco-viser-rl = "viser_robotics.rl.dashboard:main"
-mujoco-viser-train = "viser_robotics.rl.train:main"
+mujoco-viser-usage = "mujoco_viser_usage.app:main"
+mujoco-viser-rl = "mujoco_viser_usage.rl.dashboard:main"
+mujoco-viser-train = "mujoco_viser_usage.rl.train:main"
 
 [project.optional-dependencies]
 rl = [
@@ -32,4 +32,4 @@ dev = [
 testpaths = ["tests"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/viser_robotics"]
+packages = ["mujoco_viser_usage"]

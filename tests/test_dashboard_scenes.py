@@ -6,10 +6,10 @@ import numpy as np
 import pytest
 
 pytest.importorskip("stable_baselines3")
-from viser_robotics.rl.config import TrainConfig, scene_path
-from viser_robotics.rl.dashboard import ControlRoom
-from viser_robotics.rl.storage import write_json, write_npz
-from viser_robotics.simulation import Simulation
+from mujoco_viser_usage.rl.config import TrainConfig, scene_path
+from mujoco_viser_usage.rl.dashboard import ControlRoom
+from mujoco_viser_usage.rl.storage import write_json, write_npz
+from mujoco_viser_usage.simulation import Simulation
 
 
 def make_run(root: Path, task: str):

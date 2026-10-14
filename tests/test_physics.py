@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from viser_robotics.simulation import Simulation
+from mujoco_viser_usage.simulation import Simulation
 
 
 def test_motor_target_drives_physics_without_teleporting():

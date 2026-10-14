@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from viser_robotics import ViserParser
-from viser_robotics.simulation import PICK_PLACE_SCENE
+from mujoco_viser_usage import ViserParser
+from mujoco_viser_usage.simulation import PICK_PLACE_SCENE
 
 
 def test_contact_grasp_lift_transfer_release_and_reset():

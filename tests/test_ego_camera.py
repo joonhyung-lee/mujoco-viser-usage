@@ -1,6 +1,6 @@
 import numpy as np
 
-from viser_robotics.simulation import PICK_PLACE_SCENE, Simulation
+from mujoco_viser_usage.simulation import PICK_PLACE_SCENE, Simulation
 
 
 def test_home_ego_camera_is_upright_and_looks_toward_workspace():

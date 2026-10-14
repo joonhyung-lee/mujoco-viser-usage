@@ -1,9 +1,9 @@
 import numpy as np
 import pytest
 
-from viser_robotics import ViserParser
-from viser_robotics.runtime import SimulationRuntime
-from viser_robotics.simulation import Simulation
+from mujoco_viser_usage import ViserParser
+from mujoco_viser_usage.runtime import SimulationRuntime
+from mujoco_viser_usage.simulation import Simulation
 
 
 def test_headless_parser_physics_and_kinematic_interface():

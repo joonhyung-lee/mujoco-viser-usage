@@ -8,7 +8,19 @@ import numpy as np
 from mjlab.managers.recorder_manager import RecorderTerm
 
 from ..rl.storage import append_json, read_json, write_json, write_npz
-from .mdp import state
+
+
+def stage_of(env):
+    return env.cfg.events["reset"].params["stage"]
+
+
+def task_fields(env, world):
+    """Task-specific trace fields (targets, contacts, tracked positions)."""
+    if stage_of(env) == "go2":
+        from .go2 import snapshot
+    else:
+        from .mdp import snapshot
+    return snapshot(env, world)
 
 
 class RolloutRecorder(RecorderTerm):
@@ -33,35 +45,19 @@ class RolloutRecorder(RecorderTerm):
     def _snapshot(self, world, reward=0.0):
         env = self._env
         data = env.sim.data
+        names = ["qpos", "qvel", "ctrl", "qfrc_applied"]
+        if env.sim.mj_model.nmocap:
+            # Warp cannot expose empty mocap arrays to Torch.
+            names += ["mocap_pos", "mocap_quat"]
         frame = {
             name: getattr(data, name)[world].detach().cpu().numpy().copy()
-            for name in (
-                "qpos",
-                "qvel",
-                "ctrl",
-                "qfrc_applied",
-                "mocap_pos",
-                "mocap_quat",
-            )
+            for name in names
         }
         frame.update(
             time=np.array(self.steps[world] * env.step_dt),
-            targets=state(env).goals[world].cpu().numpy().copy(),
             action=env.action_manager.action[world].cpu().numpy().copy(),
             reward=np.array(reward),
-            command=np.array(0.0),
-        )
-        contacts = [env.scene[f"object_{i}_contact"].data for i in range(2)]
-        for field in ("found", "force", "dist", "pos"):
-            frame[f"contact_{field}"] = np.stack(
-                [
-                    getattr(contact, field)[world].detach().cpu().numpy().copy()
-                    for contact in contacts
-                ]
-            )
-        frame["object_pos"] = data.xpos[world, state(env).body_ids].cpu().numpy().copy()
-        frame["eef_pos"] = (
-            data.site_xpos[world, state(env).site_ids].cpu().numpy().copy()
+            **task_fields(env, world),
         )
         frame["reward_terms"] = np.asarray(
             [

@@ -1,4 +1,4 @@
-"""Four ALOHA stages registered as native mjlab manager-based environments."""
+"""Four ALOHA stages and the Go2 trot registered as native mjlab environments."""
 
 from mjlab.envs import ManagerBasedRlEnvCfg
 from mjlab.envs.mdp import nan_detection, time_out
@@ -14,9 +14,15 @@ from . import TASK_IDS, mdp
 from .assets import scene_config
 
 
-def environment_config(stage="reach", num_envs=1, seed=7):
+def environment_config(stage="reach", num_envs=1, seed=7, terrain="flat"):
     if stage not in TASK_IDS:
-        raise ValueError(f"Unknown ALOHA stage: {stage}")
+        raise ValueError(f"Unknown mjlab stage: {stage}")
+    if stage == "go2":
+        from .go2 import environment_config as go2_config
+
+        return go2_config(num_envs, seed, terrain)
+    if terrain != "flat":
+        raise ValueError("ALOHA uses its tabletop workspace")
     rewards = {
         "action_cost": RewardTermCfg(func=mdp.action_cost, weight=-0.005),
         "smoothness": RewardTermCfg(func=mdp.smoothness_cost, weight=-0.01),
@@ -77,7 +83,7 @@ def environment_config(stage="reach", num_envs=1, seed=7):
     )
 
 
-def runner_config():
+def runner_config(stage="reach"):
     return RslRlOnPolicyRunnerCfg(
         actor=RslRlModelCfg(
             hidden_dims=(128, 128),
@@ -93,7 +99,7 @@ def runner_config():
             num_learning_epochs=5, num_mini_batches=4, learning_rate=0.0003
         ),
         logger="tensorboard",
-        experiment_name="viser_aloha",
+        experiment_name="viser_go2" if stage == "go2" else "viser_aloha",
         num_steps_per_env=24,
         max_iterations=1000,
         save_interval=50,
@@ -111,6 +117,6 @@ def register_tasks():
                 task_id,
                 environment_config(stage),
                 environment_config(stage),
-                runner_config(),
+                runner_config(stage),
                 runner_cls=RecordedRunner,
             )

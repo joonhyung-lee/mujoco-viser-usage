@@ -13,12 +13,15 @@ from mjlab.rl import MjlabOnPolicyRunner, RslRlVecEnvWrapper
 
 from ..rl.storage import new_run, read_json, read_jsonl, write_json
 from .assets import export_scene
-from .baseline import ScriptedController
-from .mdp import state
-from .recording import RolloutRecorder
+from .baseline import make_controller
+from .recording import RolloutRecorder, task_fields
 
 
 def diagnostics(trace, stage):
+    if stage == "go2":
+        from .go2 import diagnostics as go2_diagnostics
+
+        return go2_diagnostics(trace)
     count = 2 if stage in {"reach", "bimanual"} else 1
     obj = trace["object_pos"][:, :count]
     tools = trace["eef_pos"][:, :count]
@@ -89,16 +92,18 @@ def evaluate(
                 env.recorder_manager = RecorderManager(cfg.recorders, env)
                 env.reset(seed=seed)
                 export_scene(env, directory / "scene")
+                fields = task_fields(env, 0)
                 initial_states.append(
                     np.concatenate(
                         (
                             env.sim.data.qpos[0].cpu().numpy(),
-                            state(env).goals[0].cpu().numpy().ravel(),
+                            np.ravel(fields["targets"]),
+                            np.ravel(fields["command"]),
                         )
                     )
                 )
                 if controller == "scripted":
-                    scripted = ScriptedController(env)
+                    scripted = make_controller(env)
                 phases = []
                 with torch.inference_mode():
                     for _ in range(env.max_episode_length):

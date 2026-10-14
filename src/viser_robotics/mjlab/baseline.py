@@ -1,4 +1,4 @@
-"""Deterministic IK controller, using the same servo actions as the RL policy."""
+"""Deterministic scripted controllers, using the same actions as the RL policy."""
 
 import mujoco
 import numpy as np
@@ -6,6 +6,14 @@ import torch
 
 from ..kinematics import SiteIK
 from .mdp import state
+
+
+def make_controller(env):
+    if env.cfg.events["reset"].params["stage"] == "go2":
+        from .go2 import ScriptedTrot
+
+        return ScriptedTrot(env)
+    return ScriptedController(env)
 
 
 class ScriptedController:

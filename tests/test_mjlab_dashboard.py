@@ -35,7 +35,8 @@ def test_native_request_roundtrip_and_invalid_task():
     config = MjlabTrainConfig(workers=512, device="cuda:0")
     assert parse_config(config.to_dict()) == config
     with pytest.raises(ValueError):
-        MjlabTrainConfig(task="go2_velocity")
+        MjlabTrainConfig(task="aloha_reach", terrain="ramps")
+    assert MjlabTrainConfig(task="go2_velocity", terrain="mixed").terrain == "mixed"
 
 
 @pytest.mark.skipif(
@@ -103,6 +104,47 @@ def test_native_pause_stop_resume_and_dashboard_replay(tmp_path):
         room._refresh_rollouts()
         assert room.overview.manipulation
         assert len(room.overview.trails[0]) == 2
+    finally:
+        if room:
+            room.close()
+        supervisor.close()
+
+
+@pytest.mark.skipif(
+    not NATIVE_PYTHON.exists(), reason="uv sync --project integrations/mjlab required"
+)
+def test_native_go2_run_replays_in_dashboard(tmp_path):
+    supervisor = RunSupervisor(tmp_path)
+    config = MjlabTrainConfig(
+        task="go2_velocity", terrain="steps", workers=2, n_steps=8, total_timesteps=32
+    )
+    room = None
+    try:
+        run = supervisor.start(config)
+        status = await_state(
+            supervisor, run, lambda state: state.get("state") == "completed"
+        )
+        supervisor.jobs[run].wait(timeout=10)
+        assert status["run_steps"] == 32
+        assert read_json(run / "run.json")["stage"] == "go2"
+        room = ControlRoom(tmp_path, port=0)
+        room._select_run(run.name)
+        assert room.backend.value == "mjlab"
+        assert room.terrain_choice.value == "steps"
+        assert room.loaded_model_path == run / "scene/scene.xml"
+        assert room.base_body == "robot/base"
+        assert room.sim.model.nmocap == 0
+        with np.load(run / "workers/0/latest.npz") as archive:
+            frame = dict(archive)
+        assert "mocap_pos" not in frame
+        room._apply_frame(frame)
+        np.testing.assert_allclose(room.sim.data.qpos, frame["qpos"])
+        for client in room.server.get_clients().values():
+            room._focus(client)
+        room.view_mode.value = "Parallel overview"
+        room._change_view()
+        room._refresh_rollouts()
+        assert not room.overview.manipulation
     finally:
         if room:
             room.close()

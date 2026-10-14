@@ -12,6 +12,14 @@ from ..scene_style import configure_scene
 from ..viewer import geometry_mesh
 
 
+def base_body_name(model):
+    """Floating base name: bundled scenes use "base"; mjlab exports prefix it."""
+    for name in ("base", "robot/base"):
+        if mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, name) >= 0:
+            return name
+    return "base"
+
+
 class ParallelOverview:
     def __init__(self, server: viser.ViserServer, model: mujoco.MjModel, *, count=4):
         self.server = server
@@ -125,7 +133,9 @@ class ParallelOverview:
             goal.visible = targets is not None
             if targets is not None:
                 goal.position = targets[i]
-        base = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "base")
+        base = mujoco.mj_name2id(
+            self.model, mujoco.mjtObj.mjOBJ_BODY, base_body_name(self.model)
+        )
         self.labels[worker].position = (
             data.xpos[base] + (0, 0, 0.6) if base >= 0 else (0, 0, 0.8)
         )

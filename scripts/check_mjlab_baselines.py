@@ -1,4 +1,4 @@
-"""Prove ALOHA task solvability with physical scripted-controller rollouts."""
+"""Prove task solvability with physical scripted-controller rollouts."""
 
 import argparse
 import json
@@ -6,7 +6,8 @@ import json
 import torch
 from mjlab.envs import ManagerBasedRlEnv
 
-from viser_robotics.mjlab.baseline import ScriptedController
+from viser_robotics.mjlab.baseline import make_controller
+from viser_robotics.mjlab.go2 import base_position
 from viser_robotics.mjlab.mdp import objects
 from viser_robotics.mjlab.tasks import environment_config
 
@@ -15,14 +16,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seed", type=int, default=1000003)
     parser.add_argument("--device", default="cpu")
+    parser.add_argument(
+        "--stages", nargs="+", default=["reach", "lift", "place", "bimanual", "go2"]
+    )
     args = parser.parse_args()
-    for stage in ("reach", "lift", "place", "bimanual"):
+    for stage in args.stages:
         cfg = environment_config(stage, seed=args.seed)
         cfg.auto_reset = False
         env = ManagerBasedRlEnv(cfg, device=args.device)
         try:
             env.reset(seed=args.seed)
-            controller = ScriptedController(env)
+            controller = make_controller(env)
             with torch.inference_mode():
                 for step in range(env.max_episode_length):
                     observation, _, terminated, timeout, _ = env.step(controller())
@@ -37,12 +41,21 @@ def main():
                         "seed": args.seed,
                         "success": success,
                         "steps": step + 1,
-                        "objects": objects(env)[0].cpu().tolist(),
+                        "objects": objects(env)[0].cpu().tolist()
+                        if stage != "go2"
+                        else None,
+                        "base": base_position(env)[0].cpu().tolist()
+                        if stage == "go2"
+                        else None,
                     }
                 ),
                 flush=True,
             )
-            assert success, f"{stage} scripted controller did not complete"
+            if stage == "go2":
+                # The open-loop trot is a baseline, not a guaranteed 3 m finisher.
+                assert float(base_position(env)[0, 0]) > 0.5, "Go2 trot did not advance"
+            else:
+                assert success, f"{stage} scripted controller did not complete"
         finally:
             env.close()
 

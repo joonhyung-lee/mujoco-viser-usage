@@ -78,7 +78,11 @@ def scene_path(config: TrainConfig):
     return resolve_scene(scene_id).path
 
 
-MJLAB_STAGES = {"aloha_reach": "reach", "aloha_pick_place": "bimanual"}
+MJLAB_STAGES = {
+    "aloha_reach": "reach",
+    "aloha_pick_place": "bimanual",
+    "go2_velocity": "go2",
+}
 
 
 @dataclass(frozen=True)
@@ -100,9 +104,11 @@ class MjlabTrainConfig:
     def __post_init__(self):
         if self.backend != "mjlab" or self.task not in MJLAB_STAGES:
             raise ValueError(
-                "mjlab dashboard currently supports ALOHA reach and pick/place"
+                "mjlab backend supports ALOHA reach, pick/place, and Go2 velocity"
             )
-        if self.terrain != "flat":
+        if self.terrain not in TERRAINS:
+            raise ValueError(f"Unknown terrain: {self.terrain}")
+        if self.task != "go2_velocity" and self.terrain != "flat":
             raise ValueError("ALOHA uses its tabletop workspace")
         for name in (
             "seed",

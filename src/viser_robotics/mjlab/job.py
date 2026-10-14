@@ -87,9 +87,12 @@ def train(request, directory, resume=None):
             agent = read_json(resume.parent / "agent.json")
         else:
             cfg = environment_config(
-                MJLAB_STAGES[request.task], request.workers, request.seed
+                MJLAB_STAGES[request.task],
+                request.workers,
+                request.seed,
+                request.terrain,
             )
-            agent = asdict(runner_config())
+            agent = asdict(runner_config(MJLAB_STAGES[request.task]))
         agent.update(
             seed=request.seed,
             num_steps_per_env=request.n_steps,

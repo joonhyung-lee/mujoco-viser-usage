@@ -104,3 +104,82 @@ def test_reach_shaping_rewards_completion_instead_of_waiting():
             pytest.fail("Holding the reachable goal must terminate successfully")
     finally:
         env.close()
+
+
+def test_go2_residual_trot_records_base_and_feet(tmp_path):
+    from viser_robotics.mjlab import go2
+
+    cfg = environment_config("go2", num_envs=2, seed=5)
+    cfg.episode_length_s = 0.08
+    cfg.recorders = {
+        "trace": RecorderTermCfg(
+            func=RolloutRecorder, params={"directory": str(tmp_path), "every": 2}
+        )
+    }
+    env = ManagerBasedRlEnv(cfg, device="cpu")
+    try:
+        observation, _ = env.reset(seed=5)
+        assert observation["actor"].shape == (2, 61)
+        assert env.sim.mj_model.nu == 12
+        qpos = env.sim.data.qpos[:].clone()
+        command = go2.state(env).command.clone()
+        assert ((command >= 0.2) & (command <= 0.45)).all()
+        env.reset(seed=5)
+        torch.testing.assert_close(env.sim.data.qpos[:], qpos)
+        torch.testing.assert_close(go2.state(env).command, command)
+        term = env.action_manager.get_term("servo")
+        torch.testing.assert_close(term.targets[0], go2.state(env).home)
+        action = torch.zeros((2, 12))
+        action[0, 0] = 0.5
+        # Residual acts on the servo target of the first actuator only.
+        term.process_actions(action)
+        term.apply_actions()
+        assert float(term.targets[0, 0] - term.nominal()[0, 0]) == pytest.approx(0.075)
+        assert float(term.targets[1, 0] - term.nominal()[1, 0]) == pytest.approx(0.0)
+        for _ in range(4):
+            observation, reward, _terminated, timeout, _ = env.step(action)
+            assert torch.isfinite(observation["actor"]).all()
+            assert torch.isfinite(reward).all()
+        assert timeout.all()
+        records = read_jsonl(tmp_path / "workers/0/episodes.jsonl")
+        assert records[-1]["state"] == "complete"
+        with np.load(tmp_path / "workers/0" / records[-1]["trace"]) as trace:
+            assert trace["base_pos"].shape[1:] == (3,)
+            assert trace["base_pos"][-1, 2] > 0.2
+            assert trace["base_upright"][-1] > 0.9
+            assert (
+                trace["contact_force"].reshape(len(trace["time"]), -1, 3).shape[1] == 4
+            )
+            assert trace["command"][-1] == pytest.approx(float(command[0]))
+            assert trace["targets"].shape == (len(trace["time"]), 2, 3)
+        export_scene(env, tmp_path / "scene")
+        exported = mujoco.MjModel.from_xml_path(str(tmp_path / "scene/scene.xml"))
+        assert exported.nu == 12
+        assert exported.actuator_gainprm[0, 0] == pytest.approx(150)
+        assert mujoco.mj_name2id(exported, mujoco.mjtObj.mjOBJ_GEOM, "wall_0_0") >= 0
+        assert mujoco.mj_name2id(exported, mujoco.mjtObj.mjOBJ_BODY, "robot/base") >= 0
+    finally:
+        env.close()
+
+
+def test_go2_gait_matches_scripted_reference():
+    from viser_robotics.mjlab import go2
+    from viser_robotics.scenes.locomotion.go2_task import gait_targets as reference
+
+    times = torch.tensor([0.0, 0.37, 1.2, 2.55])
+    out = go2.gait_targets(times, torch.full((4,), 0.15))
+    for i, time in enumerate(times.tolist()):
+        np.testing.assert_allclose(
+            out[i].numpy(), reference(time, stride=0.15), atol=1e-5
+        )
+
+
+def test_go2_terrain_variant_copies_mesh_terrain():
+    env = ManagerBasedRlEnv(environment_config("go2", terrain="ramps"), device="cpu")
+    try:
+        env.reset()
+        model = env.sim.mj_model
+        assert mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_MESH, "terrain_ramp") >= 0
+        assert mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, "floor") >= 0
+    finally:
+        env.close()

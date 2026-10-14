@@ -251,3 +251,24 @@ def reach_cost(env):
 def completion_reward(env):
     """A fixed episode bonus, independent of the control timestep."""
     return env.termination_manager.get_term("success").float() / env.step_dt
+
+
+def snapshot(env, world):
+    """ALOHA trace fields for one recorded world."""
+    data = env.sim.data
+    cache = state(env)
+    frame = {
+        "targets": cache.goals[world].cpu().numpy().copy(),
+        "command": np.array(0.0),
+        "object_pos": data.xpos[world, cache.body_ids].cpu().numpy().copy(),
+        "eef_pos": data.site_xpos[world, cache.site_ids].cpu().numpy().copy(),
+    }
+    contacts = [env.scene[f"object_{i}_contact"].data for i in range(2)]
+    for field in ("found", "force", "dist", "pos"):
+        frame[f"contact_{field}"] = np.stack(
+            [
+                getattr(contact, field)[world].detach().cpu().numpy().copy()
+                for contact in contacts
+            ]
+        )
+    return frame

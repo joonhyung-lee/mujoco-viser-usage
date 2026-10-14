@@ -24,10 +24,11 @@ that does not establish GPU throughput or policy quality.
 uv run mujoco-viser-rl --runs rl/runs --port 8090
 ```
 
-Open http://localhost:8090. Choose an ALOHA scene, then **Training → Settings →
+Open http://localhost:8090. Choose an ALOHA or Go2 scene, then **Training → Settings →
 Backend → mjlab**. The launch button changes to **Train with mjlab**. Settings also
 contains CPU/CUDA device, parallel worlds, and the training budget. Up to four worlds
-are recorded for display, regardless of training batch size. Go2 still uses SB3.
+are recorded for display, regardless of training batch size. The Go2 **Terrain**
+choice applies to both backends; every Warp world shares the selected terrain.
 
 Pause/resume acts at policy-step boundaries. Stop saves `stopped.pt`; Continue from
 checkpoint starts a new run with the saved model/optimizer and the original task
@@ -54,6 +55,7 @@ including recorded mocap poses and contact-force vectors. SB3 history stays read
 | `Viser-Aloha-Lift-v0` | Left arm, incremental joint targets | 12 s |
 | `Viser-Aloha-Place-v0` | Left arm, incremental joint targets | 22 s |
 | `Viser-Aloha-Bimanual-v0` | Both arms, incremental joint targets | 42 s |
+| `Viser-Go2-Velocity-v0` | 12 joint residuals over the scripted trot | 10 s |
 
 All tasks use physical MuJoCo-Warp steps: 2 ms physics, 20 ms control. Objects are
 free bodies, gripper force is limited to 4 N per actuator, and arm gravity/bias
@@ -63,6 +65,15 @@ Scripted control uses scratch-data IK, then the same action interface as the pol
 Lift/place/bimanual success requires a sustained physical lift; place additionally
 requires object proximity and open grippers. Reach goals come from a deterministic
 bank of forward-kinematics samples. Object positions and goal choices are seeded.
+
+The Go2 task mirrors the SB3 `go2_velocity` environment: the XML motors are replaced
+by mjlab position servos (kp 150, kd 4, XML torque limits), the action is a ±0.15 rad
+residual on the analytic trot, and the forward command is seeded in 0.2–0.45 m/s.
+Success is 3 m of forward travel; falling, tipping, or leaving the first corridor
+terminates the episode. The bundled maze or terrain XML (`ramps`, `steps`, `rough`,
+`mixed`) is copied into every world as static geometry, including the ramp mesh.
+Foot contacts are recorded per foot in world coordinates. The scripted baseline
+is the trot with zero residual.
 
 ## Train
 
@@ -83,6 +94,9 @@ uv run --project integrations/mjlab python -m viser_robotics.mjlab train \
   Viser-Aloha-Reach-v0 --gpu-ids '[0]' --env.scene.num-envs 512 \
   --agent.max-iterations 1000 --log-root rl/runs/mjlab
 ```
+
+`Viser-Go2-Velocity-v0` accepts the same arguments; the CLI registration uses the
+flat maze, while the dashboard passes the selected terrain.
 
 Native mjlab arguments, including resume, remain available through `--help`.
 TensorBoard is the default logger. Runs contain native `.pt` checkpoints,
@@ -169,12 +183,13 @@ uv run --project integrations/mjlab python scripts/check_mjlab_baselines.py
 
 On the local CPU, seed 1000003 completed reach, lift, place, and bimanual through
 physical stepping. This validates task solvability, not learned-policy performance.
-The two-update PPO smoke checkpoint did not solve reach.
+The two-update PPO smoke checkpoint did not solve reach. For Go2, the open-loop trot
+reached 3 m after 9.5 s on the same CPU seed; the script only asserts that it advances.
 
 Native tests cover all four task resets/steps, deterministic initial states, correct
 home controls, independent arm targets, incremental action range, terminal trace
 retention, and exported scene loading with matching solver options.
 
 Remaining integration work: broader failure classification, GPU learning validation,
-and Go2/Husky task migration. The comparison
+and Husky task migration. The comparison
 viewer opens in a separate tab; it is launched and owned by the dashboard.

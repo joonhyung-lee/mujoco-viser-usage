@@ -5,4 +5,5 @@ TASK_IDS = {
     "lift": "Viser-Aloha-Lift-v0",
     "place": "Viser-Aloha-Place-v0",
     "bimanual": "Viser-Aloha-Bimanual-v0",
+    "go2": "Viser-Go2-Velocity-v0",
 }

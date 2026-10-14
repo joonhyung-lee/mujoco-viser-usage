@@ -17,7 +17,7 @@ from ..simulation import Simulation
 from ..viewer import PhysicsViewer
 from .comparison import apply_frame
 from .config import MjlabTrainConfig, TrainConfig, load_config, parse_config, scene_path
-from .overview import ParallelOverview
+from .overview import ParallelOverview, base_body_name
 from .playback import PlaybackClock, RolloutPlayer, sample_trace
 from .storage import read_json, read_jsonl
 from .supervisor import RunSupervisor
@@ -234,7 +234,7 @@ class ControlRoom:
         if self.viewer is None:
             return
         if self.loaded_task == "go2_velocity":
-            target = self.sim.data.body("base").xpos.copy()
+            target = self.sim.data.body(self.base_body).xpos.copy()
             client.camera.position = target + np.array([1.8, -2.4, 1.8])
             client.camera.look_at = target + np.array([0.5, 0.0, 0.1])
             client.camera.fov = np.deg2rad(45)
@@ -266,6 +266,7 @@ class ControlRoom:
         self.server.scene.reset()
         self.sim = Simulation(model_path)
         self.loaded_model_path = model_path
+        self.base_body = base_body_name(self.sim.model)
         if native and self.sim.model.nkey:
             mujoco.mj_resetDataKeyframe(self.sim.model, self.sim.data, 0)
             mujoco.mj_forward(self.sim.model, self.sim.data)
@@ -357,10 +358,6 @@ class ControlRoom:
     def _preview_task(self, label, fallback=False):
         task = TASK_LABELS[label]
         self.terrain_choice.visible = task == "go2_velocity"
-        self.backend.visible = task != "go2_velocity"
-        self.device.visible = task != "go2_velocity" and self.backend.value == "mjlab"
-        if task == "go2_velocity":
-            self.backend.value = "SB3"
         self._update_backend_ui()
         matches = []
         alternatives = []
@@ -437,7 +434,6 @@ class ControlRoom:
         self.terrain_choice.value = config.terrain
         self.backend.value = "mjlab" if isinstance(config, MjlabTrainConfig) else "SB3"
         self._update_backend_ui()
-        self.backend.visible = config.task != "go2_velocity"
         self.device.visible = isinstance(config, MjlabTrainConfig)
         if isinstance(config, MjlabTrainConfig):
             self.device.value = config.device
@@ -543,7 +539,7 @@ class ControlRoom:
                 frame["contact_force"].reshape(-1, 3),
             )
         if self.loaded_task == "go2_velocity":
-            target = self.sim.data.body("base").xpos.copy()
+            target = self.sim.data.body(self.base_body).xpos.copy()
             if self._camera_target is not None and self.follow_camera.value:
                 delta = target - self._camera_target
                 for client in self.server.get_clients().values():

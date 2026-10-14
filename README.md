@@ -9,7 +9,7 @@ ALOHA 작업을 mjlab 1.6.0 / MuJoCo-Warp / RSL-RL로 실행하는 별도 환경
 같은 seed에서 scripted controller와 checkpoint를 비교하고, Viser에서 타임라인·EEF
 궤적·기록된 접촉력을 동기 재생합니다. 설치·학습·평가 명령과 현재 한계는
 [docs/mjlab.md](docs/mjlab.md)를 참고하세요. RL 대시보드의 `Training → Settings → Backend`에서 mjlab/SB3를 선택합니다.
-mjlab은 현재 ALOHA에 연결되어 있으며, 평가 후 같은 seed 비교 화면 링크를 제공합니다.
+mjlab은 ALOHA와 Go2 velocity(지형 포함)에 연결되어 있으며, 평가 후 같은 seed 비교 화면 링크를 제공합니다.
 
 ## 실행
 

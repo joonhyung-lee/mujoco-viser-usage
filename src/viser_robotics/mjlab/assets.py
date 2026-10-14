@@ -44,32 +44,62 @@ def object_spec(index):
     return spec
 
 
+def copy_world_geoms(spec, source, prefix="world", **overrides):
+    """Copy a compiled model's static world geoms (and their meshes) into a spec.
+
+    Static geometry is shared in layout, but each Warp world has independent contacts.
+    """
+    meshes = set()
+    for i in range(source.ngeom):
+        if source.geom_bodyid[i] != 0:
+            continue
+        fields = {
+            "type": source.geom_type[i],
+            "size": source.geom_size[i],
+            "pos": source.geom_pos[i],
+            "quat": source.geom_quat[i],
+            "rgba": source.geom_rgba[i],
+            "contype": int(source.geom_contype[i]),
+            "conaffinity": int(source.geom_conaffinity[i]),
+            "condim": int(source.geom_condim[i]),
+            "friction": source.geom_friction[i],
+            "priority": int(source.geom_priority[i]),
+            "solref": source.geom_solref[i],
+            "solimp": source.geom_solimp[i],
+            "margin": float(source.geom_margin[i]),
+            **overrides,
+        }
+        if source.geom_type[i] == mujoco.mjtGeom.mjGEOM_MESH:
+            mesh = source.geom_dataid[i]
+            name = source.mesh(mesh).name
+            if name not in meshes:
+                meshes.add(name)
+                start, count = source.mesh_vertadr[mesh], source.mesh_vertnum[mesh]
+                faces = source.mesh_faceadr[mesh], source.mesh_facenum[mesh]
+                added = spec.add_mesh(name=name)
+                added.uservert = source.mesh_vert[start : start + count].ravel()
+                added.userface = source.mesh_face[
+                    faces[0] : faces[0] + faces[1]
+                ].ravel()
+            fields["meshname"] = name
+        spec.worldbody.add_geom(name=source.geom(i).name or f"{prefix}_{i}", **fields)
+
+
 def workspace(spec):
-    # Static workspace shared in layout, but each Warp world has independent contacts.
     source = mujoco.MjModel.from_xml_path(
         str(ROOT / "manipulation/aloha/workspace.xml")
     )
     # mjlab 1.6 resolves joint positions by leaf name but keyframe controls
     # by full XML target name. Restore the bundled controls for slash-named arms.
     spec.keys[0].ctrl = source.key_ctrl[0].copy()
-    for i in range(source.ngeom):
-        if source.geom_bodyid[i] != 0:
-            continue
-        name = source.geom(i).name or f"workspace_{i}"
-        spec.worldbody.add_geom(
-            name=name,
-            type=source.geom_type[i],
-            size=source.geom_size[i],
-            pos=source.geom_pos[i],
-            quat=source.geom_quat[i],
-            rgba=source.geom_rgba[i],
-            contype=int(source.geom_contype[i]),
-            conaffinity=int(source.geom_conaffinity[i]),
-            friction=source.geom_friction[i],
-            priority=2,
-            solref=(0.004, 1),
-            solimp=(0.99, 0.99, 0.001, 0.5, 2),
-        )
+    copy_world_geoms(
+        spec,
+        source,
+        prefix="workspace",
+        priority=2,
+        solref=(0.004, 1),
+        solimp=(0.99, 0.99, 0.001, 0.5, 2),
+    )
     for side, x in [("left", -0.14), ("right", 0.14)]:
         spec.worldbody.add_site(
             name=side + "_target",

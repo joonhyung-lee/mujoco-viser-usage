@@ -63,7 +63,7 @@ class ControlRoom:
                 max(native_runs, key=lambda path: path.stat().st_mtime_ns).name
             )
         else:
-            self._preview_task(self.task_choice.value, fallback=True)
+            self._preview_task(self.task_choice.value)
 
     def _build_controls(self):
         gui = self.server.gui
@@ -355,7 +355,7 @@ class ControlRoom:
         )
         return payload.get("backend") == "mjlab"
 
-    def _preview_task(self, label, fallback=False):
+    def _preview_task(self, label):
         task = TASK_LABELS[label]
         self.terrain_choice.visible = task == "go2_velocity"
         self._update_backend_ui()
@@ -373,7 +373,8 @@ class ControlRoom:
                 and (directory / "status.json").exists()
             ):
                 matches.append(directory)
-        if not matches and fallback:
+        if not matches:
+            # Show the task's latest run from the other backend rather than nothing.
             matches = alternatives
         if matches:
             latest = max(matches, key=lambda p: (p / "status.json").stat().st_mtime_ns)

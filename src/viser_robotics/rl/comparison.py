@@ -37,7 +37,8 @@ class ComparisonViewer:
         )
         self.model = mujoco.MjModel.from_xml_path(str(first))
         self.data = [mujoco.MjData(self.model) for _ in range(2)]
-        self.server = viser.ViserServer(port=port, label="ALOHA · Policy comparison")
+        robot = "Go2" if self.report.get("stage") == "go2" else "ALOHA"
+        self.server = viser.ViserServer(port=port, label=f"{robot} · Policy comparison")
         self.overview = ParallelOverview(self.server, self.model, count=2)
         self.server.on_client_connect(self.overview.focus)
         self.forces = [

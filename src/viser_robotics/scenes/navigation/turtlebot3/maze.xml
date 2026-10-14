@@ -1,0 +1,74 @@
+<mujoco model="turtlebot3_simplified_maze">
+  <compiler angle="radian" autolimits="true" />
+  <option timestep=".002" integrator="implicitfast" />
+  <statistic center="4 4 0" extent="14" />
+  <visual>
+    <headlight ambient=".5 .5 .5" diffuse=".7 .7 .7" />
+  </visual>
+  <worldbody>
+    <light pos="0 0 8" dir="0 0 -1" directional="true" />
+    <geom name="floor" type="plane" size="15 15 .1" pos="0 0 0" rgba=".72 .76 .80 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="wall_0_0" type="box" pos="-2.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_1" type="box" pos="0.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_2" type="box" pos="2.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_3" type="box" pos="4.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_4" type="box" pos="6.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_5" type="box" pos="8.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_6" type="box" pos="10.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_1_0" type="box" pos="-2.0 0.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <site name="start" type="cylinder" pos="0.0 0.0 .008" size=".32 .008" rgba=".35 .6 1 .65" />
+    <geom name="wall_1_6" type="box" pos="10.0 0.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_0" type="box" pos="-2.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_1" type="box" pos="0.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_2" type="box" pos="2.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_4" type="box" pos="6.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_6" type="box" pos="10.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_3_0" type="box" pos="-2.0 4.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_3_4" type="box" pos="6.0 4.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_3_6" type="box" pos="10.0 4.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_0" type="box" pos="-2.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_2" type="box" pos="2.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_3" type="box" pos="4.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_4" type="box" pos="6.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_6" type="box" pos="10.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_5_0" type="box" pos="-2.0 8.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <site name="goal" type="cylinder" pos="8.0 8.0 .008" size=".32 .008" rgba=".3 .8 .55 .65" />
+    <geom name="wall_5_6" type="box" pos="10.0 8.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_0" type="box" pos="-2.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_1" type="box" pos="0.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_2" type="box" pos="2.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_3" type="box" pos="4.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_4" type="box" pos="6.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_5" type="box" pos="8.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_6" type="box" pos="10.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="start_marker" type="cylinder" pos="0.0 0.0 .008" size=".32 .008" rgba=".35 .6 1 .65" contype="0" conaffinity="0" />
+    <geom name="goal_marker" type="cylinder" pos="8.0 8.0 .008" size=".32 .008" rgba=".3 .8 .55 .65" contype="0" conaffinity="0" />
+    <body name="base" pos="0 0 0.07300000000000001">
+      <freejoint name="root" />
+      <geom name="chassis" type="box" size=".15 .12 .045" pos="0 0 .12" mass="3" rgba=".24 .26 .3 1" />
+      <geom type="cylinder" size=".065 .035" pos="0 0 .29" mass=".15" rgba=".12 .14 .16 1" />
+      <site name="tracking_site" pos="0 0 .32" size=".008" />
+      <camera name="ego_rgb" pos=".17 0 .3" xyaxes="0 -1 0 0 0 1" fovy="75" />
+      <body name="left_0" pos="0 0.16 0">
+        <joint name="left_0" type="hinge" axis="0 1 0" damping=".05" />
+        <geom type="cylinder" size="0.065 .035" quat=".70710678 .70710678 0 0" mass=".15" rgba=".08 .09 .11 1" friction=".8 .005 .0001" condim="3" />
+      </body>
+      <body name="right_0" pos="0 -0.16 0">
+        <joint name="right_0" type="hinge" axis="0 1 0" damping=".05" />
+        <geom type="cylinder" size="0.065 .035" quat=".70710678 .70710678 0 0" mass=".15" rgba=".08 .09 .11 1" friction=".8 .005 .0001" condim="3" />
+      </body>
+      <body name="caster_-0.12" pos="-0.12 0 -.042">
+        <joint type="ball" damping=".00001" />
+        <geom type="sphere" size=".02" mass=".02" friction=".3 .00001 .00001" priority="3" solref=".004 1" solimp=".99 .99 .001" />
+      </body>
+      <body name="caster_0.12" pos="0.12 0 -.042">
+        <joint type="ball" damping=".00001" />
+        <geom type="sphere" size=".02" mass=".02" friction=".3 .00001 .00001" priority="3" solref=".004 1" solimp=".99 .99 .001" />
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <velocity name="left_0" joint="left_0" kv="1" ctrlrange="-12 12" forcerange="-2 2" />
+    <velocity name="right_0" joint="right_0" kv="1" ctrlrange="-12 12" forcerange="-2 2" />
+  </actuator>
+</mujoco>

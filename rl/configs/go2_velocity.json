@@ -1,0 +1,1 @@
+{"task":"go2_velocity","seed":7,"workers":4,"total_timesteps":16384,"n_steps":256,"batch_size":256,"max_episode_steps":400}

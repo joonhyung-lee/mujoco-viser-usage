@@ -1,0 +1,59 @@
+<mujoco model="husky_robot">
+  <compiler angle="radian" meshdir="./meshes/" autolimits="true" />
+  <default>
+    <joint limited="false" armature="0.01" />
+    <equality solref="0.0002 1" solimp="0.99 0.99 0.0001" />
+  </default>
+  <asset>
+    <mesh name="base_link" file="base_link.stl" />
+    <mesh name="wheel" file="wheel.stl" />
+    <mesh name="top_plate" file="top_plate.stl" />
+    <mesh name="user_rail" file="user_rail.stl" />
+    <mesh name="bumper" file="bumper.stl" />
+  </asset>
+  <worldbody>
+    <body name="base" pos="0 0 .004" euler="0 0 0">
+      <inertial pos="-0.08748 -0.00085 0.2444" mass="33.455" fullinertia="0.6022 1.7386 2.0296 -0.02364 -0.1197 -0.001544" />
+      <joint type="free" name="base_husky_joint" />
+      <geom pos="0 0 0.14493" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.1 0.1 0.1 1" mesh="base_link" />
+      <geom pos="0 0 0.14493" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.8 0.8 0 1" mesh="top_plate" />
+      <geom pos="0.272 0 0.38993" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="user_rail" />
+      <geom pos="0.48 0 0.23593" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="bumper" />
+      <geom pos="-0.48 0 0.23593" quat="1.32679e-06 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="bumper" />
+      <body name="front_left_wheel_link" pos="0.256 0.2854 0.17775" gravcomp="0" euler="0 0 3.141592653589793">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467" />
+        <joint name="front_left_wheel" pos="0 0 0" axis="0 1 0" />
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel" />
+        <geom name="front_left_wheel_link_collision" type="cylinder" size=".17775 .05715" quat=".7071067811865476 .7071067811865476 0 0" group="3" contype="1" conaffinity="1" density="0" friction=".8 .005 .0001" priority="3" solref=".01 1" solimp=".95 .99 .001" />
+      </body>
+      <body name="front_right_wheel_link" pos="0.256 -0.2854 0.17775" gravcomp="0" euler="0 0 3.141592653589793">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467" />
+        <joint name="front_right_wheel" pos="0 0 0" axis="0 1 0" />
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel" />
+        <geom name="front_right_wheel_link_collision" type="cylinder" size=".17775 .05715" quat=".7071067811865476 .7071067811865476 0 0" group="3" contype="1" conaffinity="1" density="0" friction=".8 .005 .0001" priority="3" solref=".01 1" solimp=".95 .99 .001" />
+      </body>
+      <body name="rear_left_wheel_link" pos="-0.256 0.2854 0.17775" gravcomp="0" euler="0 0 3.141592653589793">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467" />
+        <joint name="rear_left_wheel" pos="0 0 0" axis="0 1 0" />
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel" />
+        <geom name="rear_left_wheel_link_collision" type="cylinder" size=".17775 .05715" quat=".7071067811865476 .7071067811865476 0 0" group="3" contype="1" conaffinity="1" density="0" friction=".8 .005 .0001" priority="3" solref=".01 1" solimp=".95 .99 .001" />
+      </body>
+      <body name="rear_right_wheel_link" pos="-0.256 -0.2854 0.17775" gravcomp="0" euler="0 0 3.141592653589793">
+        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="2.637" diaginertia="0.04411 0.02467 0.02467" />
+        <joint name="rear_right_wheel" pos="0 0 0" axis="0 1 0" />
+        <geom type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.3 0.3 0.3 1" mesh="wheel" />
+        <geom name="rear_right_wheel_link_collision" type="cylinder" size=".17775 .05715" quat=".7071067811865476 .7071067811865476 0 0" group="3" contype="1" conaffinity="1" density="0" friction=".8 .005 .0001" priority="3" solref=".01 1" solimp=".95 .99 .001" />
+      </body>
+      <geom name="chassis_collision" type="box" size=".5037 .28545 .13375" pos="0 0 .26991" group="3" contype="1" conaffinity="1" density="0" priority="3" solref=".01 1" solimp=".95 .99 .001" />
+      <site name="tracking_site" pos="0 0 .48" size=".008" />
+      <camera name="ego_rgb" pos=".43 0 .48" xyaxes="0 -1 0 0 0 1" fovy="75" />
+    </body>
+  </worldbody>
+  <actuator>
+    <velocity name="front_left_actuator" ctrllimited="true" ctrlrange="-12 12" gear="-1" kv="10" joint="front_left_wheel" forcerange="-25 25" />
+    <velocity name="front_right_actuator" ctrllimited="true" ctrlrange="-12 12" gear="-1" kv="10" joint="front_right_wheel" forcerange="-25 25" />
+    <velocity name="rear_left_actuator" ctrllimited="true" ctrlrange="-12 12" gear="-1" kv="10" joint="rear_left_wheel" forcerange="-25 25" />
+    <velocity name="rear_right_actuator" ctrllimited="true" ctrlrange="-12 12" gear="-1" kv="10" joint="rear_right_wheel" forcerange="-25 25" />
+  </actuator>
+  <option timestep=".001" integrator="implicitfast" />
+</mujoco>

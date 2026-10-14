@@ -1,0 +1,11 @@
+[project]
+name = "mujoco-viser-mjlab"
+version = "0.1.0"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "mujoco-viser-usage[rl]",
+    "mjlab==1.6.0",
+]
+
+[tool.uv.sources]
+mujoco-viser-usage = { path = "../..", editable = true }

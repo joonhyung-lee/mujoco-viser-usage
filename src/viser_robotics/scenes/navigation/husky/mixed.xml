@@ -1,0 +1,95 @@
+<mujoco model="husky_mixed">
+  <include file="husky.xml" />
+  <statistic center="4 4 0" extent="14" />
+  <visual>
+    <headlight ambient=".5 .5 .5" diffuse=".7 .7 .7" />
+  </visual>
+  <worldbody>
+    <light pos="0 0 8" dir="0 0 -1" directional="true" />
+    <geom name="floor" type="plane" size="15 15 .1" pos="0 0 0" rgba=".72 .76 .80 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="wall_0_0" type="box" pos="-2.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_1" type="box" pos="0.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_2" type="box" pos="2.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_3" type="box" pos="4.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_4" type="box" pos="6.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_5" type="box" pos="8.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_0_6" type="box" pos="10.0 -2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_1_0" type="box" pos="-2.0 0.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <site name="start" type="cylinder" pos="0.0 0.0 .008" size=".32 .008" rgba=".35 .6 1 .65" />
+    <geom name="wall_1_6" type="box" pos="10.0 0.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_0" type="box" pos="-2.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_1" type="box" pos="0.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_2" type="box" pos="2.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_4" type="box" pos="6.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_2_6" type="box" pos="10.0 2.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_3_0" type="box" pos="-2.0 4.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_3_4" type="box" pos="6.0 4.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_3_6" type="box" pos="10.0 4.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_0" type="box" pos="-2.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_2" type="box" pos="2.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_3" type="box" pos="4.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_4" type="box" pos="6.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_4_6" type="box" pos="10.0 6.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_5_0" type="box" pos="-2.0 8.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <site name="goal" type="cylinder" pos="8.0 8.0 .008" size=".32 .008" rgba=".3 .8 .55 .65" />
+    <geom name="wall_5_6" type="box" pos="10.0 8.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_0" type="box" pos="-2.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_1" type="box" pos="0.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_2" type="box" pos="2.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_3" type="box" pos="4.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_4" type="box" pos="6.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_5" type="box" pos="8.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="wall_6_6" type="box" pos="10.0 10.0 .3" size="1.0 1.0 .3" rgba=".68 .72 .76 1" />
+    <geom name="start_marker" type="cylinder" pos="0.0 0.0 .008" size=".32 .008" rgba=".35 .6 1 .65" contype="0" conaffinity="0" />
+    <geom name="goal_marker" type="cylinder" pos="8.0 8.0 .008" size=".32 .008" rgba=".3 .8 .55 .65" contype="0" conaffinity="0" />
+    <geom name="terrain_ramp" type="mesh" mesh="terrain_ramp" pos="1.65 0 0" rgba=".70 .74 .76 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_step_0" type="box" pos="2.33 0 0.0075" size="0.08 0.7 0.0075" rgba=".72 .75 .77 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_step_1" type="box" pos="2.4899999999999998 0 0.015" size="0.08 0.7 0.015" rgba=".72 .75 .77 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_step_2" type="box" pos="2.65 0 0.0225" size="0.08 0.7 0.0225" rgba=".72 .75 .77 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_step_3" type="box" pos="2.81 0 0.015" size="0.08 0.7 0.015" rgba=".72 .75 .77 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_step_4" type="box" pos="2.9699999999999998 0 0.0075" size="0.08 0.7 0.0075" rgba=".72 .75 .77 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_0_0" type="box" pos="4.0 -0.5 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_0_1" type="box" pos="4.0 -0.25 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_0_2" type="box" pos="4.0 0.0 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_0_3" type="box" pos="4.0 0.25 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_0_4" type="box" pos="4.0 0.5 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_1_0" type="box" pos="4.19 -0.5 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_1_1" type="box" pos="4.19 -0.25 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_1_2" type="box" pos="4.19 0.0 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_1_3" type="box" pos="4.19 0.25 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_1_4" type="box" pos="4.19 0.5 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_2_0" type="box" pos="4.38 -0.5 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_2_1" type="box" pos="4.38 -0.25 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_2_2" type="box" pos="4.38 0.0 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_2_3" type="box" pos="4.38 0.25 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_2_4" type="box" pos="4.38 0.5 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_3_0" type="box" pos="4.57 -0.5 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_3_1" type="box" pos="4.57 -0.25 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_3_2" type="box" pos="4.57 0.0 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_3_3" type="box" pos="4.57 0.25 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_3_4" type="box" pos="4.57 0.5 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_4_0" type="box" pos="4.76 -0.5 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_4_1" type="box" pos="4.76 -0.25 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_4_2" type="box" pos="4.76 0.0 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_4_3" type="box" pos="4.76 0.25 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_4_4" type="box" pos="4.76 0.5 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_5_0" type="box" pos="4.95 -0.5 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_5_1" type="box" pos="4.95 -0.25 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_5_2" type="box" pos="4.95 0.0 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_5_3" type="box" pos="4.95 0.25 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_5_4" type="box" pos="4.95 0.5 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_6_0" type="box" pos="5.140000000000001 -0.5 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_6_1" type="box" pos="5.140000000000001 -0.25 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_6_2" type="box" pos="5.140000000000001 0.0 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_6_3" type="box" pos="5.140000000000001 0.25 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_6_4" type="box" pos="5.140000000000001 0.5 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_7_0" type="box" pos="5.33 -0.5 0.012" size="0.094 0.124 0.012" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_7_1" type="box" pos="5.33 -0.25 0.008" size="0.094 0.124 0.008" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_7_2" type="box" pos="5.33 0.0 0.004" size="0.094 0.124 0.004" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_7_3" type="box" pos="5.33 0.25 0.01" size="0.094 0.124 0.01" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="terrain_rough_7_4" type="box" pos="5.33 0.5 0.006" size="0.094 0.124 0.006" rgba=".69 .73 .75 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+  </worldbody>
+  <asset>
+    <mesh name="terrain_ramp" vertex="-.6 -.7 0  .6 -.7 0  0 -.7 .08  -.6 .7 0  .6 .7 0  0 .7 .08" face="0 1 2 3 5 4 0 4 1 0 3 4 1 5 2 1 4 5 2 3 0 2 5 3" />
+  </asset>
+</mujoco>

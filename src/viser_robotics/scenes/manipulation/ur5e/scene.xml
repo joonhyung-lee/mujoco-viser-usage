@@ -1,0 +1,11 @@
+<mujoco model="UR5e physics sandbox">
+  <include file="ur5e.xml"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <worldbody>
+    <geom name="floor" type="plane" size="2 2 0.05" rgba="0.19 0.23 0.28 1"/>
+    <body name="drop_box" pos="0.55 0.35 0.65">
+      <freejoint name="box_free"/>
+      <geom name="box" type="box" size="0.045 0.045 0.045" mass="0.2" rgba="0.95 0.49 0.18 1" friction="0.8 0.01 0.001"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,1 @@
+{"task":"aloha_reach","seed":11,"workers":4,"total_timesteps":16384,"n_steps":256,"batch_size":256,"max_episode_steps":300}

@@ -1,0 +1,30 @@
+<mujoco model="UR5e RG2 pick and place">
+  <include file="ur5e_rg2.xml" />
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast" cone="elliptic" iterations="80" />
+  <worldbody>
+    <geom name="floor" type="plane" size="3 3 0.05" rgba="0.2 0.2 0.2 1" conaffinity="3" />
+    <body name="base_table" pos="0 0 0.39">
+      <geom name="base_table" type="box" size="0.23 0.25 0.39" rgba="0.27 0.31 0.34 1" conaffinity="3" />
+    </body>
+    <body name="object_table" pos="0.65 0 0.72">
+      <geom name="table_top" type="box" size="0.35 0.5 0.025" rgba="0.48 0.5 0.53 1" conaffinity="3" />
+      <geom type="box" pos="-0.28 -0.43 -0.36" size="0.025 0.025 0.335" rgba="0.22 0.24 0.27 1" conaffinity="3" />
+      <geom type="box" pos="0.28 -0.43 -0.36" size="0.025 0.025 0.335" rgba="0.22 0.24 0.27 1" conaffinity="3" />
+      <geom type="box" pos="-0.28 0.43 -0.36" size="0.025 0.025 0.335" rgba="0.22 0.24 0.27 1" conaffinity="3" />
+      <geom type="box" pos="0.28 0.43 -0.36" size="0.025 0.025 0.335" rgba="0.22 0.24 0.27 1" conaffinity="3" />
+      <site name="place_target" pos="0 0.22 0.026" type="box" size="0.075 0.075 0.001" rgba="0.3 0.8 0.25 0.6" />
+      <geom type="box" pos="-0.075 0.22 0.026" size="0.002 0.075 0.001" rgba="0.4 0.8 0.1 1" contype="0" conaffinity="0" />
+      <geom type="box" pos="0.075 0.22 0.026" size="0.002 0.075 0.001" rgba="0.4 0.8 0.1 1" contype="0" conaffinity="0" />
+      <geom type="box" pos="0 0.145 0.026" size="0.075 0.002 0.001" rgba="0.4 0.8 0.1 1" contype="0" conaffinity="0" />
+      <geom type="box" pos="0 0.295 0.026" size="0.075 0.002 0.001" rgba="0.4 0.8 0.1 1" contype="0" conaffinity="0" />
+    </body>
+    <body name="pick_object" pos="0.65 -0.2 0.775">
+      <freejoint name="object_free" />
+      <geom name="pick_object_geom" type="box" size="0.025 0.025 0.03" mass="0.05" rgba="0.95 0.97 1.0 0.72" friction="1.5 0.01 0.001" condim="4" conaffinity="3" />
+    </body>
+    <light name="workspace_light" pos="0.5 -0.5 3" dir="0 0 -1" directional="true" diffuse="0.8 0.8 0.8" ambient="0.3 0.3 0.3" />
+  </worldbody>
+  <keyframe>
+    <key name="home" qpos="2.6446534071382923 -1.1428845806837906 1.0525621934098954 -1.480094354848723 -1.5700963085958408 1.0738569460657277 -1 -0.9090909090909091 -1 1 0.9090909090909091 1 0.65 -0.2 0.775 1 0 0 0" ctrl="2.6446534071382923 -1.1428845806837906 1.0525621934098954 -1.480094354848723 -1.5700963085958408 1.0738569460657277 1" />
+  </keyframe>
+</mujoco>

@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store
+MUJOCO_LOG.TXT
+dist/
+artifacts/
+
+rl/runs/
+
+rl/mjlab-smoke/
+logs/
+.ruff_cache/

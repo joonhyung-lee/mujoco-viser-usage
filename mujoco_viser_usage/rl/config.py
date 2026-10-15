@@ -23,6 +23,8 @@ class TrainConfig:
     reward: str = "dense"  # franka_insert: dense | sparse (SGS paper)
     configs: int = 0  # franka_insert: fixed task-configuration buffer size, 0 = none
     sampler: str = "uniform"  # uniform | linear | sgs over that buffer
+    kappa: float = 1.0  # sgs kernel concentration (paper: 1 manipulation, 5 locomotion)
+    history: int = 20  # sgs outcomes kept per configuration (paper: 100)
     seed: int = 7
     workers: int = 4
     total_timesteps: int = 16384
@@ -62,6 +64,8 @@ class TrainConfig:
             raise ValueError("reward must be dense|sparse, sampler uniform|linear|sgs")
         if not isinstance(self.configs, int) or self.configs < 0:
             raise ValueError("configs must be a nonnegative integer")
+        if self.kappa <= 0 or not isinstance(self.history, int) or self.history < 1:
+            raise ValueError("kappa must be positive and history a positive integer")
         if self.sampler != "uniform" and not self.configs:
             raise ValueError("linear and sgs samplers need a configuration buffer")
         if self.seed < 0:

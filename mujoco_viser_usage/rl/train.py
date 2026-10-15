@@ -158,8 +158,13 @@ def train(config: TrainConfig, run: Path, resume: Path | None = None):
             from .configs import sample_configs
             from .sgs import SAMPLERS, ConfigSampling
 
-            sampler = SAMPLERS[config.sampler](
-                sample_configs(config.configs, config.part, config.seed), config.seed
+            configs = sample_configs(config.configs, config.part, config.seed)
+            sampler = (
+                SAMPLERS["sgs"](
+                    configs, config.seed, kappa=config.kappa, history=config.history
+                )
+                if config.sampler == "sgs"
+                else SAMPLERS[config.sampler](configs, config.seed)
             )
             vector = ConfigSampling(vector, sampler, run, config.total_timesteps)
         if resume:

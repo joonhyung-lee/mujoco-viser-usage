@@ -32,6 +32,7 @@ SHOTS = [
     ("aloha", APP + ["manipulation/aloha", "--demo"], 22, None),
     ("franka-plug", APP + ["manipulation/franka_plug", "--demo"], 12, None),
     ("franka-cable", APP + ["manipulation/franka_cable", "--demo"], 12, None),
+    ("nist-board", APP + ["manipulation/nist_board", "--demo"], 62, None),
     ("husky-maze", APP + ["navigation/husky_mixed", "--demo"], 45, None),
     ("rl-dashboard", DASHBOARD, 8, None),
     ("rl-go2", DASHBOARD, 4, lambda page: select_scene(page, "Go2 · walk")),
@@ -90,11 +91,13 @@ def main():
             print("skip", name, "(no run)", flush=True)
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
-        page = browser.new_page(viewport={"width": 1440, "height": 900})
         for port, (name, command, wait, action) in enumerate(shots, start=8101):
             if args.only and name not in args.only:
                 continue
+            # Fresh page per shot: the Viser client keeps camera state across navigations.
+            page = browser.new_page(viewport={"width": 1440, "height": 900})
             capture(page, name, command, wait, port, action)
+            page.close()
         browser.close()
 
 

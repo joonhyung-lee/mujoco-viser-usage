@@ -38,6 +38,7 @@ with ViserParser(viewer=False) as robot:
 | --- | --- | --- |
 | Manipulation | UR5e + RG2, Franka, ALOHA | Contact-based pick & place (no welds, no teleport) |
 | Franka tasks | `franka_plug`, `franka_cable` | Plug insertion (2.5 mm clearance), cable-end routing into a clip |
+| NIST board | `nist_board` | NIST Assembly Task Board #1: 8 pegs, 3 gears, 4 nuts, 5 connectors from the NIST STL kit |
 | Locomotion | Go1, Go2, Spot, Spot + arm | Go2 analytic trot through position servos |
 | Navigation | Husky (CAD meshes), TurtleBot3 | BFS path + wheel-velocity following in a maze |
 
@@ -62,6 +63,18 @@ Overlays (toggle in **View**): contact-force arrows, wrist-camera RGB, tracked E
     <td align="center">Franka · cable chain routed into a clip</td>
   </tr>
 </table>
+
+<p align="center">
+  <img src="docs/assets/nist-board.png" width="100%" alt="Franka assembling the NIST Task Board #1">
+</p>
+<p align="center">NIST Assembly Task Board #1 · scripted 16 mm rod, 16 mm peg, 12 mm rod, large gear, M16 nut</p>
+
+The board (`manipulation/nist_board`) is built from the public NIST STL kit: hole
+positions measured from the laser-plate STL, drilled diameters and the optional 45°
+lead-ins from the NIST instructions. Holes, bores, and nuts are primitive rings, so
+pegs really pass through 0.1–0.25 mm clearances instead of convex hulls. Success uses
+the AlphaNIST criterion: part within 1 mm of its assembled pose. Connector mating
+is not simulated (males are loose rigid parts).
 
 ## RL control room
 

@@ -1,0 +1,445 @@
+<mujoco model="nist_task_board_1">
+  <include file="franka.xml" />
+  <statistic center="0.5 -0.05 0.05" extent="0.7" />
+  <visual>
+    <headlight ambient=".35 .35 .35" diffuse=".6 .6 .6" />
+  </visual>
+  <asset>
+    <mesh name="plate" file="nist/plate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gear_plate" file="nist/gear_plate.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gear_shaft" file="nist/gear_shaft.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gear_large" file="nist/gear_large.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gear_medium" file="nist/gear_medium.stl" scale="0.001 0.001 0.001" />
+    <mesh name="gear_small" file="nist/gear_small.stl" scale="0.001 0.001 0.001" />
+    <mesh name="nut_4" file="nist/nut_4.stl" scale="0.001 0.001 0.001" />
+    <mesh name="nut_8" file="nist/nut_8.stl" scale="0.001 0.001 0.001" />
+    <mesh name="nut_12" file="nist/nut_12.stl" scale="0.001 0.001 0.001" />
+    <mesh name="nut_16" file="nist/nut_16.stl" scale="0.001 0.001 0.001" />
+    <mesh name="dsub_f" file="nist/dsub_f.stl" scale="0.001 0.001 0.001" />
+    <mesh name="dsub_housing" file="nist/dsub_housing.stl" scale="0.001 0.001 0.001" />
+    <mesh name="usb_f" file="nist/usb_f.stl" scale="0.001 0.001 0.001" />
+    <mesh name="rj45_f" file="nist/rj45_f.stl" scale="0.001 0.001 0.001" />
+    <mesh name="rj45_housing" file="nist/rj45_housing.stl" scale="0.001 0.001 0.001" />
+    <mesh name="rj45_m" file="nist/rj45_m.stl" scale="0.001 0.001 0.001" />
+    <mesh name="bnc_f" file="nist/bnc_f.stl" scale="0.001 0.001 0.001" />
+    <mesh name="bnc_m" file="nist/bnc_m.stl" scale="0.001 0.001 0.001" />
+    <mesh name="waterproof_f" file="nist/waterproof_f.stl" scale="0.001 0.001 0.001" />
+    <mesh name="waterproof_m" file="nist/waterproof_m.stl" scale="0.001 0.001 0.001" />
+  </asset>
+  <worldbody>
+    <light pos="0 0 8" dir="0 0 -1" directional="true" />
+    <light pos="0.4 -0.6 1.5" dir="0 0.4 -1" diffuse=".4 .4 .4" />
+    <geom name="floor" type="plane" size="15 15 .1" pos="0 0 -0.75" rgba=".72 .76 .80 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="object_table" type="box" size=".55 .45 .045" pos=".3 0 -.045" rgba=".55 .58 .63 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom type="box" size=".035 .035 .35" pos="-0.2 -0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="-0.2 0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="0.8 -0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="0.8 0.38 -.4" rgba=".18 .2 .23 1" />
+    <body name="board" pos="0.52 0 0">
+      <geom type="mesh" mesh="plate" pos="0 0 0" rgba=".93 .93 .9 1" contype="0" conaffinity="0" group="2" />
+      <geom name="plate_0" type="box" pos="-0.177875 0 0.0045" size="0.014125 0.192 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_1" type="box" pos="-0.163725 -0.02345 0.0045" size="2.5e-05 0.16855 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_2" type="box" pos="-0.163725 0.17865 0.0045" size="2.5e-05 0.01335 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_3" type="box" pos="-0.161675 -0.13745 0.0045" size="0.002025 0.05455 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_4" type="box" pos="-0.161675 0.0442 0.0045" size="0.002025 0.1009 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_5" type="box" pos="-0.161675 0.17865 0.0045" size="0.002025 0.01335 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_6" type="box" pos="-0.1506 -0.13745 0.0045" size="0.00905 0.05455 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_7" type="box" pos="-0.1506 -0.0313 0.0045" size="0.00905 0.0254 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_8" type="box" pos="-0.1506 0.0807 0.0045" size="0.00905 0.0644 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_9" type="box" pos="-0.1506 0.17865 0.0045" size="0.00905 0.01335 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_10" type="box" pos="-0.139525 -0.13745 0.0045" size="0.002025 0.05455 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_11" type="box" pos="-0.139525 0.0442 0.0045" size="0.002025 0.1009 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_12" type="box" pos="-0.139525 0.17865 0.0045" size="0.002025 0.01335 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_13" type="box" pos="-0.137475 -0.02345 0.0045" size="2.5e-05 0.16855 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_14" type="box" pos="-0.137475 0.17865 0.0045" size="2.5e-05 0.01335 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_15" type="box" pos="-0.11205 0 0.0045" size="0.0254 0.192 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_16" type="box" pos="-0.0756 -0.023925 0.0045" size="0.01105 0.168075 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_17" type="box" pos="-0.0756 0.179125 0.0045" size="0.01105 0.012875 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_18" type="box" pos="-0.0371 0 0.0045" size="0.02745 0.192 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_19" type="box" pos="-0.00865 -0.022925 0.0045" size="0.001 0.169075 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_20" type="box" pos="-0.00865 0.178125 0.0045" size="0.001 0.013875 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_21" type="box" pos="-0.0006 -0.096925 0.0045" size="0.00705 0.095075 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_22" type="box" pos="-0.0006 0.0792 0.0045" size="0.00705 0.06695 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_23" type="box" pos="-0.0006 0.178125 0.0045" size="0.00705 0.013875 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_24" type="box" pos="0.00745 -0.022925 0.0045" size="0.001 0.169075 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_25" type="box" pos="0.00745 0.178125 0.0045" size="0.001 0.013875 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_26" type="box" pos="0.0338 0 0.0045" size="0.02535 0.192 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_27" type="box" pos="0.062225 -0.138525 0.0045" size="0.003075 0.053475 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_28" type="box" pos="0.062225 0.068725 0.0045" size="0.003075 0.123275 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_29" type="box" pos="0.0744 -0.138525 0.0045" size="0.0091 0.053475 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_30" type="box" pos="0.0744 0.00855 0.0045" size="0.0091 0.0631 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_31" type="box" pos="0.0744 0.140375 0.0045" size="0.0091 0.051625 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_32" type="box" pos="0.086575 -0.138525 0.0045" size="0.003075 0.053475 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_33" type="box" pos="0.086575 0.068725 0.0045" size="0.003075 0.123275 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="plate_34" type="box" pos="0.140825 0 0.0045" size="0.051175 0.192 0.0045" rgba=".93 .93 .9 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_0" type="box" pos="0.00379496 0.156378 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 0.261799" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_1" type="box" pos="0.00261734 0.158417 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 0.785398" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_2" type="box" pos="0.000577627 0.159595 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 1.309" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_3" type="box" pos="-0.00177763 0.159595 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 1.8326" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_4" type="box" pos="-0.00381734 0.158417 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 2.35619" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_5" type="box" pos="-0.00499496 0.156378 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 2.87979" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_6" type="box" pos="-0.00499496 0.154022 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 3.40339" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_7" type="box" pos="-0.00381734 0.151983 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 3.92699" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_8" type="box" pos="-0.00177763 0.150805 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 4.45059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_9" type="box" pos="0.000577627 0.150805 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 4.97419" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_10" type="box" pos="0.00261734 0.151983 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 5.49779" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_11" type="box" pos="0.00379496 0.154022 0.003" size="0.0025 0.00121917 0.003" axisangle="0 0 1 6.02139" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r4_c0" type="box" pos="0.0033413 0.156256 0.00696967" size="0.00212132 0.00218904 0.00075" quat="0.915976 0.0499502 -0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c1" type="box" pos="0.00228523 0.158085 0.00696967" size="0.00212132 0.00218904 0.00075" quat="0.853553 0.146447 -0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c2" type="box" pos="0.000456067 0.159141 0.00696967" size="0.00212132 0.00218904 0.00075" quat="0.732963 0.232963 -0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c3" type="box" pos="-0.00165607 0.159141 0.00696967" size="0.00212132 0.00218904 0.00075" quat="0.562422 0.303603 -0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c4" type="box" pos="-0.00348523 0.158085 0.00696967" size="0.00212132 0.00218904 0.00075" quat="0.353553 0.353553 -0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c5" type="box" pos="-0.0045413 0.156256 0.00696967" size="0.00212132 0.00218904 0.00075" quat="0.12059 0.37941 -0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c6" type="box" pos="-0.0045413 0.154144 0.00696967" size="0.00212132 0.00218904 0.00075" quat="-0.12059 0.37941 0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c7" type="box" pos="-0.00348523 0.152315 0.00696967" size="0.00212132 0.00218904 0.00075" quat="-0.353553 0.353553 0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c8" type="box" pos="-0.00165607 0.151259 0.00696967" size="0.00212132 0.00218904 0.00075" quat="-0.562422 0.303603 0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c9" type="box" pos="0.000456067 0.151259 0.00696967" size="0.00212132 0.00218904 0.00075" quat="-0.732963 0.232963 0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c10" type="box" pos="0.00228523 0.152315 0.00696967" size="0.00212132 0.00218904 0.00075" quat="-0.853553 0.146447 0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r4_c11" type="box" pos="0.0033413 0.154144 0.00696967" size="0.00212132 0.00218904 0.00075" quat="-0.915976 0.0499502 0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_0" type="box" pos="-0.0692732 0.156895 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 0.261799" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_1" type="box" pos="-0.0709685 0.159832 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 0.785398" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_2" type="box" pos="-0.0739047 0.161527 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 1.309" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_3" type="box" pos="-0.0772953 0.161527 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 1.8326" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_4" type="box" pos="-0.0802315 0.159832 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 2.35619" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_5" type="box" pos="-0.0819268 0.156895 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 2.87979" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_6" type="box" pos="-0.0819268 0.153505 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 3.40339" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_7" type="box" pos="-0.0802315 0.150568 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 3.92699" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_8" type="box" pos="-0.0772953 0.148873 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 4.45059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_9" type="box" pos="-0.0739047 0.148873 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 4.97419" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_10" type="box" pos="-0.0709685 0.150568 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 5.49779" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_11" type="box" pos="-0.0692732 0.153505 0.003" size="0.0025 0.00175507 0.003" axisangle="0 0 1 6.02139" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r8_c0" type="box" pos="-0.0697269 0.156774 0.00696967" size="0.00212132 0.00272494 0.00075" quat="0.915976 0.0499502 -0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c1" type="box" pos="-0.0713006 0.159499 0.00696967" size="0.00212132 0.00272494 0.00075" quat="0.853553 0.146447 -0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c2" type="box" pos="-0.0740263 0.161073 0.00696967" size="0.00212132 0.00272494 0.00075" quat="0.732963 0.232963 -0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c3" type="box" pos="-0.0771737 0.161073 0.00696967" size="0.00212132 0.00272494 0.00075" quat="0.562422 0.303603 -0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c4" type="box" pos="-0.0798994 0.159499 0.00696967" size="0.00212132 0.00272494 0.00075" quat="0.353553 0.353553 -0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c5" type="box" pos="-0.0814731 0.156774 0.00696967" size="0.00212132 0.00272494 0.00075" quat="0.12059 0.37941 -0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c6" type="box" pos="-0.0814731 0.153626 0.00696967" size="0.00212132 0.00272494 0.00075" quat="-0.12059 0.37941 0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c7" type="box" pos="-0.0798994 0.150901 0.00696967" size="0.00212132 0.00272494 0.00075" quat="-0.353553 0.353553 0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c8" type="box" pos="-0.0771737 0.149327 0.00696967" size="0.00212132 0.00272494 0.00075" quat="-0.562422 0.303603 0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c9" type="box" pos="-0.0740263 0.149327 0.00696967" size="0.00212132 0.00272494 0.00075" quat="-0.732963 0.232963 0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c10" type="box" pos="-0.0713006 0.150901 0.00696967" size="0.00212132 0.00272494 0.00075" quat="-0.853553 0.146447 0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r8_c11" type="box" pos="-0.0697269 0.153626 0.00696967" size="0.00212132 0.00272494 0.00075" quat="-0.915976 0.0499502 0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_0" type="box" pos="-0.142293 -0.0675742 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 0.261799" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_1" type="box" pos="-0.144519 -0.0637189 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 0.785398" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_2" type="box" pos="-0.148374 -0.061493 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 1.309" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_3" type="box" pos="-0.152826 -0.061493 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 1.8326" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_4" type="box" pos="-0.156681 -0.0637189 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 2.35619" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_5" type="box" pos="-0.158907 -0.0675742 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 2.87979" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_6" type="box" pos="-0.158907 -0.0720258 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 3.40339" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_7" type="box" pos="-0.156681 -0.0758811 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 3.92699" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_8" type="box" pos="-0.152826 -0.078107 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 4.45059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_9" type="box" pos="-0.148374 -0.078107 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 4.97419" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_10" type="box" pos="-0.144519 -0.0758811 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 5.49779" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_11" type="box" pos="-0.142293 -0.0720258 0.003" size="0.0025 0.00230436 0.003" axisangle="0 0 1 6.02139" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r12_c0" type="box" pos="-0.142747 -0.0676957 0.00696967" size="0.00212132 0.00327424 0.00075" quat="0.915976 0.0499502 -0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c1" type="box" pos="-0.144851 -0.064051 0.00696967" size="0.00212132 0.00327424 0.00075" quat="0.853553 0.146447 -0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c2" type="box" pos="-0.148496 -0.0619467 0.00696967" size="0.00212132 0.00327424 0.00075" quat="0.732963 0.232963 -0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c3" type="box" pos="-0.152704 -0.0619467 0.00696967" size="0.00212132 0.00327424 0.00075" quat="0.562422 0.303603 -0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c4" type="box" pos="-0.156349 -0.064051 0.00696967" size="0.00212132 0.00327424 0.00075" quat="0.353553 0.353553 -0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c5" type="box" pos="-0.158453 -0.0676957 0.00696967" size="0.00212132 0.00327424 0.00075" quat="0.12059 0.37941 -0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c6" type="box" pos="-0.158453 -0.0719043 0.00696967" size="0.00212132 0.00327424 0.00075" quat="-0.12059 0.37941 0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c7" type="box" pos="-0.156349 -0.075549 0.00696967" size="0.00212132 0.00327424 0.00075" quat="-0.353553 0.353553 0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c8" type="box" pos="-0.152704 -0.0776533 0.00696967" size="0.00212132 0.00327424 0.00075" quat="-0.562422 0.303603 0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c9" type="box" pos="-0.148496 -0.0776533 0.00696967" size="0.00212132 0.00327424 0.00075" quat="-0.732963 0.232963 0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c10" type="box" pos="-0.144851 -0.075549 0.00696967" size="0.00212132 0.00327424 0.00075" quat="-0.853553 0.146447 0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r12_c11" type="box" pos="-0.142747 -0.0719043 0.00696967" size="0.00212132 0.00327424 0.00075" quat="-0.915976 0.0499502 0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_0" type="box" pos="0.0847837 -0.0670177 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 0.261799" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_1" type="box" pos="0.0820014 -0.0621986 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 0.785398" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_2" type="box" pos="0.0771823 -0.0594163 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 1.309" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_3" type="box" pos="0.0716177 -0.0594163 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 1.8326" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_4" type="box" pos="0.0667986 -0.0621986 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 2.35619" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_5" type="box" pos="0.0640163 -0.0670177 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 2.87979" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_6" type="box" pos="0.0640163 -0.0725823 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 3.40339" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_7" type="box" pos="0.0667986 -0.0774014 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 3.92699" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_8" type="box" pos="0.0716177 -0.0801837 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 4.45059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_9" type="box" pos="0.0771823 -0.0801837 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 4.97419" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_10" type="box" pos="0.0820014 -0.0774014 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 5.49779" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_11" type="box" pos="0.0847837 -0.0725823 0.003" size="0.0025 0.00288045 0.003" axisangle="0 0 1 6.02139" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" group="3" />
+      <geom name="hole_r16_c0" type="box" pos="0.08433 -0.0671393 0.00696967" size="0.00212132 0.00385033 0.00075" quat="0.915976 0.0499502 -0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c1" type="box" pos="0.0816693 -0.0625307 0.00696967" size="0.00212132 0.00385033 0.00075" quat="0.853553 0.146447 -0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c2" type="box" pos="0.0770607 -0.05987 0.00696967" size="0.00212132 0.00385033 0.00075" quat="0.732963 0.232963 -0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c3" type="box" pos="0.0717393 -0.05987 0.00696967" size="0.00212132 0.00385033 0.00075" quat="0.562422 0.303603 -0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c4" type="box" pos="0.0671307 -0.0625307 0.00696967" size="0.00212132 0.00385033 0.00075" quat="0.353553 0.353553 -0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c5" type="box" pos="0.06447 -0.0671393 0.00696967" size="0.00212132 0.00385033 0.00075" quat="0.12059 0.37941 -0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c6" type="box" pos="0.06447 -0.0724607 0.00696967" size="0.00212132 0.00385033 0.00075" quat="-0.12059 0.37941 0.0499502 0.915976" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c7" type="box" pos="0.0671307 -0.0770693 0.00696967" size="0.00212132 0.00385033 0.00075" quat="-0.353553 0.353553 0.146447 0.853553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c8" type="box" pos="0.0717393 -0.07973 0.00696967" size="0.00212132 0.00385033 0.00075" quat="-0.562422 0.303603 0.232963 0.732963" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c9" type="box" pos="0.0770607 -0.07973 0.00696967" size="0.00212132 0.00385033 0.00075" quat="-0.732963 0.232963 0.303603 0.562422" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c10" type="box" pos="0.0816693 -0.0770693 0.00696967" size="0.00212132 0.00385033 0.00075" quat="-0.853553 0.146447 0.353553 0.353553" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_r16_c11" type="box" pos="0.08433 -0.0724607 0.00696967" size="0.00212132 0.00385033 0.00075" quat="-0.915976 0.0499502 0.37941 0.12059" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_0" type="box" pos="0.00395 0.0052 0.003" size="0.0025 0.00705 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_1" type="box" pos="-0.00515 0.0052 0.003" size="0.0025 0.00705 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_2" type="box" pos="-0.0006 0.00975 0.003" size="0.00205 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_3" type="box" pos="-0.0006 0.00065 0.003" size="0.00205 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_c0" type="box" pos="0.00348033 0.0052 0.00696967" size="0.00212132 0.00705 0.00075" quat="0.92388 0 -0.382683 0" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_c1" type="box" pos="-0.00468033 0.0052 0.00696967" size="0.00212132 0.00705 0.00075" quat="5.65713e-17 0.382683 -2.34326e-17 0.92388" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_c2" type="box" pos="-0.0006 0.00928033 0.00696967" size="0.00212132 0.00705 0.00075" quat="0.653281 0.270598 -0.270598 0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s4_c3" type="box" pos="-0.0006 0.00111967 0.00696967" size="0.00212132 0.00705 0.00075" quat="0.653281 -0.270598 -0.270598 -0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_0" type="box" pos="0.081 0.0802 0.003" size="0.0025 0.00855 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_1" type="box" pos="0.0678 0.0802 0.003" size="0.0025 0.00855 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_2" type="box" pos="0.0744 0.08625 0.003" size="0.0041 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_3" type="box" pos="0.0744 0.07415 0.003" size="0.0041 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_c0" type="box" pos="0.0805303 0.0802 0.00696967" size="0.00212132 0.00855 0.00075" quat="0.92388 0 -0.382683 0" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_c1" type="box" pos="0.0682697 0.0802 0.00696967" size="0.00212132 0.00855 0.00075" quat="5.65713e-17 0.382683 -2.34326e-17 0.92388" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_c2" type="box" pos="0.0744 0.0857803 0.00696967" size="0.00212132 0.0091 0.00075" quat="0.653281 0.270598 -0.270598 0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s8_c3" type="box" pos="0.0744 0.0746197 0.00696967" size="0.00212132 0.0091 0.00075" quat="0.653281 -0.270598 -0.270598 -0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_0" type="box" pos="-0.14405 0.0052 0.003" size="0.0025 0.0111 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_1" type="box" pos="-0.15715 0.0052 0.003" size="0.0025 0.0111 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_2" type="box" pos="-0.1506 0.0138 0.003" size="0.00405 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_3" type="box" pos="-0.1506 -0.0034 0.003" size="0.00405 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_c0" type="box" pos="-0.14452 0.0052 0.00696967" size="0.00212132 0.0111 0.00075" quat="0.92388 0 -0.382683 0" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_c1" type="box" pos="-0.15668 0.0052 0.00696967" size="0.00212132 0.0111 0.00075" quat="5.65713e-17 0.382683 -2.34326e-17 0.92388" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_c2" type="box" pos="-0.1506 0.0133303 0.00696967" size="0.00212132 0.00905 0.00075" quat="0.653281 0.270598 -0.270598 0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s12_c3" type="box" pos="-0.1506 -0.00293033 0.00696967" size="0.00212132 0.00905 0.00075" quat="0.653281 -0.270598 -0.270598 -0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_0" type="box" pos="-0.13995 0.1552 0.003" size="0.0025 0.0101 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_1" type="box" pos="-0.16125 0.1552 0.003" size="0.0025 0.0101 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_2" type="box" pos="-0.1506 0.1628 0.003" size="0.00815 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_3" type="box" pos="-0.1506 0.1476 0.003" size="0.00815 0.0025 0.003" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_c0" type="box" pos="-0.14042 0.1552 0.00696967" size="0.00212132 0.0101 0.00075" quat="0.92388 0 -0.382683 0" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_c1" type="box" pos="-0.16078 0.1552 0.00696967" size="0.00212132 0.0101 0.00075" quat="5.65713e-17 0.382683 -2.34326e-17 0.92388" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_c2" type="box" pos="-0.1506 0.16233 0.00696967" size="0.00212132 0.01315 0.00075" quat="0.653281 0.270598 -0.270598 0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="hole_s16_c3" type="box" pos="-0.1506 0.14807 0.00696967" size="0.00212132 0.01315 0.00075" quat="0.653281 -0.270598 -0.270598 -0.653281" rgba=".93 .93 .9 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="bolt_4" type="capsule" pos="-0.0006 -0.0698 0.014" size="0.002 0.003" rgba=".55 .55 .6 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="bolt_4_seat" pos="-0.0006 -0.0698 0.009" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom name="bolt_8" type="capsule" pos="-0.1506 -0.1448 0.015" size="0.004 0.002" rgba=".55 .55 .6 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="bolt_8_seat" pos="-0.1506 -0.1448 0.009" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom name="bolt_12" type="capsule" pos="0.0744 0.1552 0.016" size="0.006 0.001" rgba=".55 .55 .6 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="bolt_12_seat" pos="0.0744 0.1552 0.009" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom name="bolt_16" type="capsule" pos="0.1494 -0.1448 0.019" size="0.008 0.002" rgba=".55 .55 .6 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="bolt_16_seat" pos="0.1494 -0.1448 0.009" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom type="mesh" mesh="gear_plate" pos="-0.0106 -0.1448 0.009" rgba=".8 .8 .82 1" contype="0" conaffinity="0" group="2" />
+      <geom name="gear_plate" type="box" pos="-0.0106 -0.1448 0.0115" size="0.06 0.03 0.0025" rgba=".8 .8 .82 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="shaft_large" type="capsule" pos="-0.0506 -0.1448 0.024" size="0.005 0.005" rgba=".6 .6 .65 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="shaft_large_seat" pos="-0.0506 -0.1448 0.014" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom name="shaft_medium" type="capsule" pos="-0.0006 -0.1448 0.024" size="0.005 0.005" rgba=".6 .6 .65 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="shaft_medium_seat" pos="-0.0006 -0.1448 0.014" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom name="shaft_small" type="capsule" pos="0.0294 -0.1448 0.024" size="0.005 0.005" rgba=".6 .6 .65 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="shaft_small_seat" pos="0.0294 -0.1448 0.014" size=".002" rgba="1 .4 .2 .5" group="5" />
+      <geom type="mesh" mesh="dsub_housing" pos="-0.0756 0.0052 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom type="mesh" mesh="dsub_f" pos="-0.0756 0.0052 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="dsub_f" type="box" pos="-0.0756 0.0052 0.0309028" size="0.0295 0.008 0.0219028" rgba=".25 .25 .28 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom type="mesh" mesh="usb_f" pos="0.0744 0.0052 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="usb_f" type="box" pos="0.0744 0.0052 0.03" size="0.00900002 0.019 0.021" rgba=".25 .25 .28 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom type="mesh" mesh="rj45_housing" pos="-0.1506 0.0802 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom type="mesh" mesh="rj45_f" pos="-0.1506 0.0802 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="rj45_f" type="box" pos="-0.1506 0.0802 0.022" size="0.0073 0.008 0.013" rgba=".25 .25 .28 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom type="mesh" mesh="bnc_f" pos="0.1494 0.1552 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="bnc_f" type="box" pos="0.1494 0.1552 0.019585" size="0.00875 0.00875 0.010585" rgba=".25 .25 .28 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom type="mesh" mesh="waterproof_f" pos="-0.0006 0.0877 0.009" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="waterproof_f" type="box" pos="-0.0006 0.0877 0.02475" size="0.0320991 0.01685 0.01575" rgba=".25 .25 .28 0" group="3" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    </body>
+    <body name="tray" pos="0.5 -0.3 0">
+      <geom name="tray_plate" type="box" pos="0 0 .0015" size=".2 .05 .0015" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_0" type="box" pos="-0.175796 0.00174121 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 0.392699" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_1" type="box" pos="-0.178259 0.00420365 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 1.1781" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_2" type="box" pos="-0.181741 0.00420365 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 1.9635" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_3" type="box" pos="-0.184204 0.00174121 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 2.74889" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_4" type="box" pos="-0.184204 -0.00174121 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 3.53429" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_5" type="box" pos="-0.181741 -0.00420365 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 4.31969" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_6" type="box" pos="-0.178259 -0.00420365 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 5.10509" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r4_7" type="box" pos="-0.175796 -0.00174121 0.006" size="0.0015 0.00188467 0.003" axisangle="0 0 1 5.89049" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_0" type="box" pos="-0.133949 0.00250658 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 0.392699" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_1" type="box" pos="-0.137493 0.00605141 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 1.1781" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_2" type="box" pos="-0.142507 0.00605141 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 1.9635" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_3" type="box" pos="-0.146051 0.00250658 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 2.74889" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_4" type="box" pos="-0.146051 -0.00250658 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 3.53429" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_5" type="box" pos="-0.142507 -0.00605141 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 4.31969" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_6" type="box" pos="-0.137493 -0.00605141 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 5.10509" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r8_7" type="box" pos="-0.133949 -0.00250658 0.006" size="0.0015 0.0027131 0.003" axisangle="0 0 1 5.89049" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_0" type="box" pos="-0.0920546 0.00329108 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 0.392699" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_1" type="box" pos="-0.0967089 0.00794536 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 1.1781" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_2" type="box" pos="-0.103291 0.00794536 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 1.9635" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_3" type="box" pos="-0.107945 0.00329108 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 2.74889" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_4" type="box" pos="-0.107945 -0.00329108 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 3.53429" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_5" type="box" pos="-0.103291 -0.00794536 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 4.31969" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_6" type="box" pos="-0.0967089 -0.00794536 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 5.10509" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r12_7" type="box" pos="-0.0920546 -0.00329108 0.006" size="0.0015 0.00356224 0.003" axisangle="0 0 1 5.89049" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_0" type="box" pos="-0.0500683 0.00411385 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 0.392699" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_1" type="box" pos="-0.0558862 0.0099317 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 1.1781" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_2" type="box" pos="-0.0641138 0.0099317 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 1.9635" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_3" type="box" pos="-0.0699317 0.00411385 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 2.74889" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_4" type="box" pos="-0.0699317 -0.00411385 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 3.53429" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_5" type="box" pos="-0.0641138 -0.0099317 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 4.31969" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_6" type="box" pos="-0.0558862 -0.0099317 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 5.10509" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_r16_7" type="box" pos="-0.0500683 -0.00411385 0.006" size="0.0015 0.0044528 0.003" axisangle="0 0 1 5.89049" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s4_0" type="box" pos="-0.0155 0 0.006" size="0.0015 0.006 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s4_1" type="box" pos="-0.0245 0 0.006" size="0.0015 0.006 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s4_2" type="box" pos="-0.02 0.0045 0.006" size="0.003 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s4_3" type="box" pos="-0.02 -0.0045 0.006" size="0.003 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s8_0" type="box" pos="0.0265 0 0.006" size="0.0015 0.0075 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s8_1" type="box" pos="0.0135 0 0.006" size="0.0015 0.0075 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s8_2" type="box" pos="0.02 0.006 0.006" size="0.005 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s8_3" type="box" pos="0.02 -0.006 0.006" size="0.005 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s12_0" type="box" pos="0.0665 0 0.006" size="0.0015 0.01 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s12_1" type="box" pos="0.0535 0 0.006" size="0.0015 0.01 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s12_2" type="box" pos="0.06 0.0085 0.006" size="0.005 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s12_3" type="box" pos="0.06 -0.0085 0.006" size="0.005 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s16_0" type="box" pos="0.1105 0 0.006" size="0.0015 0.009 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s16_1" type="box" pos="0.0895 0 0.006" size="0.0015 0.009 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s16_2" type="box" pos="0.1 0.0075 0.006" size="0.009 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <geom name="tray_s16_3" type="box" pos="0.1 -0.0075 0.006" size="0.009 0.0015 0.003" rgba=".3 .32 .36 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    </body>
+    <body name="rod_4" pos="0.32 -0.3 0.028">
+      <freejoint name="rod_4" />
+      <geom name="rod_4" type="cylinder" size="0.002 0.025" mass="0.005" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="rod_4_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="rod_8" pos="0.36 -0.3 0.028">
+      <freejoint name="rod_8" />
+      <geom name="rod_8" type="cylinder" size="0.004 0.025" mass="0.02" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="rod_8_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="rod_12" pos="0.4 -0.3 0.028">
+      <freejoint name="rod_12" />
+      <geom name="rod_12" type="cylinder" size="0.006 0.025" mass="0.045" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="rod_12_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="rod_16" pos="0.44 -0.3 0.028">
+      <freejoint name="rod_16" />
+      <geom name="rod_16" type="cylinder" size="0.008 0.025" mass="0.08" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="rod_16_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="peg_4" pos="0.48 -0.3 0.028">
+      <freejoint name="peg_4" />
+      <geom name="peg_4" type="box" size="0.002 0.002 0.025" mass="0.005" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="peg_4_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="peg_8" pos="0.52 -0.3 0.028">
+      <freejoint name="peg_8" />
+      <geom name="peg_8" type="box" size="0.004 0.0035 0.025" mass="0.02" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="peg_8_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="peg_12" pos="0.56 -0.3 0.028">
+      <freejoint name="peg_12" />
+      <geom name="peg_12" type="box" size="0.004 0.006 0.025" mass="0.045" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="peg_12_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="peg_16" pos="0.6 -0.3 0.028">
+      <freejoint name="peg_16" />
+      <geom name="peg_16" type="box" size="0.008 0.005 0.025" mass="0.08" rgba=".75 .76 .8 1" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <site name="peg_16_tip" pos="0 0 -0.025" size=".002" group="5" />
+    </body>
+    <body name="gear_large" pos="0.3 0.3 0">
+      <freejoint name="gear_large" />
+      <geom type="mesh" mesh="gear_large" rgba=".2 .2 .22 1" contype="0" conaffinity="0" group="2" />
+      <geom name="gear_large_0" type="box" pos="0.01765 0 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 0" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_1" type="box" pos="0.0152853 0.008825 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 0.523599" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_2" type="box" pos="0.008825 0.0152853 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 1.0472" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_3" type="box" pos="1.08075e-18 0.01765 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 1.5708" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_4" type="box" pos="-0.008825 0.0152853 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 2.0944" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_5" type="box" pos="-0.0152853 0.008825 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 2.61799" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_6" type="box" pos="-0.01765 2.1615e-18 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 3.14159" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_7" type="box" pos="-0.0152853 -0.008825 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 3.66519" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_8" type="box" pos="-0.008825 -0.0152853 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 4.18879" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_9" type="box" pos="-3.24225e-18 -0.01765 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 4.71239" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_10" type="box" pos="0.008825 -0.0152853 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 5.23599" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+      <geom name="gear_large_11" type="box" pos="0.0152853 -0.008825 0.01" size="0.01235 0.0047293 0.01" axisangle="0 0 1 5.75959" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00369048" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="gear_medium" pos="0.39 0.3 0">
+      <freejoint name="gear_medium" />
+      <geom type="mesh" mesh="gear_medium" rgba=".2 .2 .22 1" contype="0" conaffinity="0" group="2" />
+      <geom name="gear_medium_0" type="box" pos="0.01265 0 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 0" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_1" type="box" pos="0.0109552 0.006325 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 0.523599" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_2" type="box" pos="0.006325 0.0109552 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 1.0472" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_3" type="box" pos="7.74589e-19 0.01265 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 1.5708" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_4" type="box" pos="-0.006325 0.0109552 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 2.0944" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_5" type="box" pos="-0.0109552 0.006325 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 2.61799" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_6" type="box" pos="-0.01265 1.54918e-18 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 3.14159" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_7" type="box" pos="-0.0109552 -0.006325 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 3.66519" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_8" type="box" pos="-0.006325 -0.0109552 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 4.18879" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_9" type="box" pos="-2.32377e-18 -0.01265 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 4.71239" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_10" type="box" pos="0.006325 -0.0109552 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 5.23599" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+      <geom name="gear_medium_11" type="box" pos="0.0109552 -0.006325 0.01" size="0.00735 0.00338956 0.01" axisangle="0 0 1 5.75959" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.0025" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="gear_small" pos="0.48 0.3 0">
+      <freejoint name="gear_small" />
+      <geom type="mesh" mesh="gear_small" rgba=".2 .2 .22 1" contype="0" conaffinity="0" group="2" />
+      <geom name="gear_small_0" type="box" pos="0.00765 0 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 0" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_1" type="box" pos="0.00662509 0.003825 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 0.523599" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_2" type="box" pos="0.003825 0.00662509 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 1.0472" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_3" type="box" pos="4.68427e-19 0.00765 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 1.5708" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_4" type="box" pos="-0.003825 0.00662509 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 2.0944" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_5" type="box" pos="-0.00662509 0.003825 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 2.61799" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_6" type="box" pos="-0.00765 9.36855e-19 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 3.14159" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_7" type="box" pos="-0.00662509 -0.003825 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 3.66519" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_8" type="box" pos="-0.003825 -0.00662509 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 4.18879" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_9" type="box" pos="-1.40528e-18 -0.00765 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 4.71239" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_10" type="box" pos="0.003825 -0.00662509 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 5.23599" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+      <geom name="gear_small_11" type="box" pos="0.00662509 -0.003825 0.01" size="0.00235 0.00204981 0.01" axisangle="0 0 1 5.75959" rgba=".2 .2 .22 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00130952" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="nut_4" pos="0.58 0.3 0">
+      <freejoint name="nut_4" />
+      <geom type="mesh" mesh="nut_4" rgba=".6 .6 .65 1" contype="0" conaffinity="0" group="2" />
+      <geom name="nut_4_0" type="box" pos="0.00259808 0.0015 0.0016" size="0.0005 0.00173205 0.0016" axisangle="0 0 1 0.523599" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="7.84e-05" condim="6" friction="1 .02 .01" />
+      <geom name="nut_4_1" type="box" pos="1.83697e-19 0.003 0.0016" size="0.0005 0.00173205 0.0016" axisangle="0 0 1 1.5708" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="7.84e-05" condim="6" friction="1 .02 .01" />
+      <geom name="nut_4_2" type="box" pos="-0.00259808 0.0015 0.0016" size="0.0005 0.00173205 0.0016" axisangle="0 0 1 2.61799" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="7.84e-05" condim="6" friction="1 .02 .01" />
+      <geom name="nut_4_3" type="box" pos="-0.00259808 -0.0015 0.0016" size="0.0005 0.00173205 0.0016" axisangle="0 0 1 3.66519" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="7.84e-05" condim="6" friction="1 .02 .01" />
+      <geom name="nut_4_4" type="box" pos="-5.51091e-19 -0.003 0.0016" size="0.0005 0.00173205 0.0016" axisangle="0 0 1 4.71239" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="7.84e-05" condim="6" friction="1 .02 .01" />
+      <geom name="nut_4_5" type="box" pos="0.00259808 -0.0015 0.0016" size="0.0005 0.00173205 0.0016" axisangle="0 0 1 5.75959" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="7.84e-05" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="nut_8" pos="0.62 0.3 0">
+      <freejoint name="nut_8" />
+      <geom type="mesh" mesh="nut_8" rgba=".6 .6 .65 1" contype="0" conaffinity="0" group="2" />
+      <geom name="nut_8_0" type="box" pos="0.00476314 0.00275 0.00325" size="0.001 0.00317543 0.00325" axisangle="0 0 1 0.523599" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00054925" condim="6" friction="1 .02 .01" />
+      <geom name="nut_8_1" type="box" pos="3.36778e-19 0.0055 0.00325" size="0.001 0.00317543 0.00325" axisangle="0 0 1 1.5708" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00054925" condim="6" friction="1 .02 .01" />
+      <geom name="nut_8_2" type="box" pos="-0.00476314 0.00275 0.00325" size="0.001 0.00317543 0.00325" axisangle="0 0 1 2.61799" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00054925" condim="6" friction="1 .02 .01" />
+      <geom name="nut_8_3" type="box" pos="-0.00476314 -0.00275 0.00325" size="0.001 0.00317543 0.00325" axisangle="0 0 1 3.66519" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00054925" condim="6" friction="1 .02 .01" />
+      <geom name="nut_8_4" type="box" pos="-1.01033e-18 -0.0055 0.00325" size="0.001 0.00317543 0.00325" axisangle="0 0 1 4.71239" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00054925" condim="6" friction="1 .02 .01" />
+      <geom name="nut_8_5" type="box" pos="0.00476314 -0.00275 0.00325" size="0.001 0.00317543 0.00325" axisangle="0 0 1 5.75959" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.00054925" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="nut_12" pos="0.66 0.3 0">
+      <freejoint name="nut_12" />
+      <geom type="mesh" mesh="nut_12" rgba=".6 .6 .65 1" contype="0" conaffinity="0" group="2" />
+      <geom name="nut_12_0" type="box" pos="0.0069282 0.004 0.005" size="0.0015 0.0046188 0.005" axisangle="0 0 1 0.523599" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.001805" condim="6" friction="1 .02 .01" />
+      <geom name="nut_12_1" type="box" pos="4.89859e-19 0.008 0.005" size="0.0015 0.0046188 0.005" axisangle="0 0 1 1.5708" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.001805" condim="6" friction="1 .02 .01" />
+      <geom name="nut_12_2" type="box" pos="-0.0069282 0.004 0.005" size="0.0015 0.0046188 0.005" axisangle="0 0 1 2.61799" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.001805" condim="6" friction="1 .02 .01" />
+      <geom name="nut_12_3" type="box" pos="-0.0069282 -0.004 0.005" size="0.0015 0.0046188 0.005" axisangle="0 0 1 3.66519" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.001805" condim="6" friction="1 .02 .01" />
+      <geom name="nut_12_4" type="box" pos="-1.46958e-18 -0.008 0.005" size="0.0015 0.0046188 0.005" axisangle="0 0 1 4.71239" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.001805" condim="6" friction="1 .02 .01" />
+      <geom name="nut_12_5" type="box" pos="0.0069282 -0.004 0.005" size="0.0015 0.0046188 0.005" axisangle="0 0 1 5.75959" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.001805" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="nut_16" pos="0.7 0.3 0">
+      <freejoint name="nut_16" />
+      <geom type="mesh" mesh="nut_16" rgba=".6 .6 .65 1" contype="0" conaffinity="0" group="2" />
+      <geom name="nut_16_0" type="box" pos="0.00887676 0.005125 0.0065" size="0.00175 0.00591784 0.0065" axisangle="0 0 1 0.523599" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.003744" condim="6" friction="1 .02 .01" />
+      <geom name="nut_16_1" type="box" pos="6.27631e-19 0.01025 0.0065" size="0.00175 0.00591784 0.0065" axisangle="0 0 1 1.5708" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.003744" condim="6" friction="1 .02 .01" />
+      <geom name="nut_16_2" type="box" pos="-0.00887676 0.005125 0.0065" size="0.00175 0.00591784 0.0065" axisangle="0 0 1 2.61799" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.003744" condim="6" friction="1 .02 .01" />
+      <geom name="nut_16_3" type="box" pos="-0.00887676 -0.005125 0.0065" size="0.00175 0.00591784 0.0065" axisangle="0 0 1 3.66519" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.003744" condim="6" friction="1 .02 .01" />
+      <geom name="nut_16_4" type="box" pos="-1.88289e-18 -0.01025 0.0065" size="0.00175 0.00591784 0.0065" axisangle="0 0 1 4.71239" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.003744" condim="6" friction="1 .02 .01" />
+      <geom name="nut_16_5" type="box" pos="0.00887676 -0.005125 0.0065" size="0.00175 0.00591784 0.0065" axisangle="0 0 1 5.75959" rgba=".6 .6 .65 0" priority="2" solref=".004 1" solimp=".99 .99 .001" mass="0.003744" condim="6" friction="1 .02 .01" />
+    </body>
+    <body name="rj45_m" pos="0.25 -0.39 0">
+      <freejoint name="rj45_m" />
+      <geom type="mesh" mesh="rj45_m" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="rj45_m" type="box" pos="0 0 0.031" size="0.0055 0.00507021 0.031" mass="0.02" rgba=".25 .25 .28 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    </body>
+    <body name="bnc_m" pos="0.35 -0.39 0">
+      <freejoint name="bnc_m" />
+      <geom type="mesh" mesh="bnc_m" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="bnc_m" type="box" pos="0 0 0.0106604" size="0.00733942 0.007214 0.0106604" mass="0.02" rgba=".25 .25 .28 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    </body>
+    <body name="waterproof_m" pos="0.45 -0.39 0">
+      <freejoint name="waterproof_m" />
+      <geom type="mesh" mesh="waterproof_m" rgba=".25 .25 .28 1" contype="0" conaffinity="0" group="2" />
+      <geom name="waterproof_m" type="box" pos="0 0 0.0177" size="0.0313928 0.01625 0.0177" mass="0.02" rgba=".25 .25 .28 0" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    </body>
+    <site name="rod_4_goal" pos="0.5194 0.1552 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="rod_8_goal" pos="0.4444 0.1552 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="rod_12_goal" pos="0.3694 -0.0698 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="rod_16_goal" pos="0.5944 -0.0698 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="peg_4_goal" pos="0.5194 0.0052 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="peg_8_goal" pos="0.5944 0.0802 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="peg_12_goal" pos="0.3694 0.0052 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="peg_16_goal" pos="0.3694 0.1552 0.025" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="gear_large_goal" pos="0.4694 -0.1448 0.014" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="gear_medium_goal" pos="0.5194 -0.1448 0.014" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="gear_small_goal" pos="0.5494 -0.1448 0.014" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="nut_4_goal" pos="0.5194 -0.0698 0.009" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="nut_8_goal" pos="0.3694 -0.1448 0.009" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="nut_12_goal" pos="0.5944 0.1552 0.009" size=".002" rgba="1 .4 .2 .4" group="5" />
+    <site name="nut_16_goal" pos="0.6694 -0.1448 0.009" size=".002" rgba="1 .4 .2 .4" group="5" />
+  </worldbody>
+  <keyframe>
+    <key name="home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853 0.04 0.04 0.32 -0.3 0.028 1 0 0 0 0.36 -0.3 0.028 1 0 0 0 0.4 -0.3 0.028 1 0 0 0 0.44 -0.3 0.028 1 0 0 0 0.48 -0.3 0.028 1 0 0 0 0.52 -0.3 0.028 1 0 0 0 0.56 -0.3 0.028 1 0 0 0 0.6 -0.3 0.028 1 0 0 0 0.3 0.3 0 1 0 0 0 0.39 0.3 0 1 0 0 0 0.48 0.3 0 1 0 0 0 0.58 0.3 0 1 0 0 0 0.62 0.3 0 1 0 0 0 0.66 0.3 0 1 0 0 0 0.7 0.3 0 1 0 0 0 0.25 -0.39 0 1 0 0 0 0.35 -0.39 0 1 0 0 0 0.45 -0.39 0 1 0 0 0" ctrl="0 0 0 -1.57079 0 1.57079 -0.7853 255" />
+  </keyframe>
+</mujoco>

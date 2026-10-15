@@ -37,6 +37,15 @@ def add_translucent_frame(server: viser.ViserServer) -> viser.FrameHandle:
 
 
 def geometry_mesh(model: mujoco.MjModel, index: int):
+    """Viewer mesh for a geom. Vertices are split along edges sharper than 30
+    degrees so smooth shading keeps CAD edges and primitive rims crisp."""
+    mesh = raw_geometry_mesh(model, index)
+    if model.geom_type[index] == mujoco.mjtGeom.mjGEOM_PLANE:
+        return mesh
+    return trimesh.graph.smooth_shade(mesh, angle=np.radians(30))
+
+
+def raw_geometry_mesh(model: mujoco.MjModel, index: int):
     kind = model.geom_type[index]
     size = model.geom_size[index]
     if kind == mujoco.mjtGeom.mjGEOM_MESH:
@@ -57,15 +66,19 @@ def geometry_mesh(model: mujoco.MjModel, index: int):
     if kind == mujoco.mjtGeom.mjGEOM_BOX:
         return trimesh.creation.box(extents=2 * size)
     if kind == mujoco.mjtGeom.mjGEOM_SPHERE:
-        return trimesh.creation.icosphere(subdivisions=2, radius=size[0])
+        return trimesh.creation.icosphere(subdivisions=3, radius=size[0])
     if kind == mujoco.mjtGeom.mjGEOM_ELLIPSOID:
-        mesh = trimesh.creation.icosphere(subdivisions=2)
+        mesh = trimesh.creation.icosphere(subdivisions=3)
         mesh.apply_scale(size)
         return mesh
     if kind == mujoco.mjtGeom.mjGEOM_CYLINDER:
-        return trimesh.creation.cylinder(radius=size[0], height=2 * size[1])
+        return trimesh.creation.cylinder(
+            radius=size[0], height=2 * size[1], sections=48
+        )
     if kind == mujoco.mjtGeom.mjGEOM_CAPSULE:
-        return trimesh.creation.capsule(radius=size[0], height=2 * size[1])
+        return trimesh.creation.capsule(
+            radius=size[0], height=2 * size[1], count=(48, 24)
+        )
     raise ValueError(f"Unsupported MuJoCo geometry type: {kind}")
 
 
@@ -192,6 +205,7 @@ class PhysicsViewer:
             target = self._scene_center
             # Scenes declare <statistic extent>; 2 m keeps the previous framing.
             position = target + np.array((1.8, 1.8, 1.5)) * self._extent / 2
+
         # Position first: Viser translates the orbit target when position changes.
         client.camera.position = position
         client.camera.look_at = target

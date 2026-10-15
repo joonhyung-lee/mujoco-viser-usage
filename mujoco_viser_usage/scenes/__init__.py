@@ -41,6 +41,12 @@ SCENES = (
         "franka_cable",
     ),
     Scene(
+        "manipulation/nist_board",
+        ROOT / "manipulation/franka/nist_board.xml",
+        "Franka Panda · NIST Assembly Task Board #1 · pegs, gears, nuts, connectors",
+        "franka_nist",
+    ),
+    Scene(
         "manipulation/aloha",
         ROOT / "manipulation/aloha/workspace.xml",
         "ALOHA · two arms · contact-based pick & place",

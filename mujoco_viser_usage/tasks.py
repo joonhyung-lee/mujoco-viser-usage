@@ -30,7 +30,7 @@ def create_task(name: str | None, simulation: Simulation) -> Task | None:
         from .scenes.aloha_task import AlohaTask
 
         return AlohaTask(simulation)
-    if name in ("franka_plug", "franka_cable"):
+    if name in ("franka_plug", "franka_cable", "franka_nist"):
         from .scenes.franka_task import FrankaTask
 
         return FrankaTask(simulation, name.removeprefix("franka_"))

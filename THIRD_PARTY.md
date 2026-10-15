@@ -81,3 +81,14 @@ URDF chassis collision size translated into the MJCF visual frame, bounded wheel
 controls/forces, compliant tire contacts, 1 ms implicit-fast integration, tracking site and ego camera.
 `build_husky_assets.py` reproduces the adapted model from the retained sources.
 The terrain variants are newly authored here, deterministic and physically collidable.
+
+## NIST Assembly Task Board #1
+
+`assets/manipulation/franka/assets/nist/*.stl` are decimated, recentered copies of the
+STL kit published by the U.S. National Institute of Standards and Technology for
+Assembly Task Board #1 (https://www.nist.gov/document/taskboard1stlzip), a work of the
+U.S. Government in the public domain. Hole positions in `nist_board.xml` were measured
+from `GMC_Laser_Plate_Virtual.STL`; hole diameters follow the NIST assembly
+instructions (drilled 4.1 / 8.1 / 12.2 / 16.5 mm). Pegs, rods, bolts, bores, and nut
+threads are primitive geometry so that insertion is simulated rather than convex-hulled.
+Rebuild with `python -m mujoco_viser_usage.tools.build_nist_board <stl dir>`.

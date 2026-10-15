@@ -5,12 +5,19 @@ import pytest
 from mujoco_viser_usage import ViserParser
 
 
-@pytest.mark.parametrize("name", ["plug", "cable"])
-def test_franka_task_completes(name):
-    with ViserParser.from_scene(f"manipulation/franka_{name}", viewer=False) as robot:
+@pytest.mark.parametrize(
+    "scene",
+    [
+        "manipulation/franka_plug",
+        "manipulation/franka_cable",
+        "manipulation/nist_board",
+    ],
+)
+def test_franka_task_completes(scene):
+    with ViserParser.from_scene(scene, viewer=False) as robot:
         robot.task.start()
         penetration = 0.0
-        for _ in range(12000):
+        for _ in range(60000):
             robot.step()
             penetration = max(
                 penetration, -float(min(robot.data.contact.dist, default=0))

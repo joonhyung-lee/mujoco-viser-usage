@@ -52,30 +52,26 @@
   </div>
 
   <figure>
-    <img src="assets/pick-place.png" alt="UR5e pick and place with wrist RGB, contact forces, and the tracked end-effector path">
-    <figcaption>UR5e + RG2 pick &amp; place. Wrist RGB, contact forces, tracked end-effector path. Objects move through contact only.</figcaption>
+    <img src="assets/nist-board.gif" alt="Franka assembling the NIST Task Board #1 at 6x speed">
+    <figcaption>NIST Assembly Task Board #1 · scripted assembly, 6× speed. Built from the public NIST STL kit; holes are
+      primitive rings with 45° lead-ins, so pegs really pass 0.1–0.25 mm clearances. Five parts seated within 1 mm.</figcaption>
   </figure>
 
   <h2>Scenes</h2>
   <div class="grid">
+    <figure><img src="assets/pick-place.png" alt="UR5e pick and place with wrist RGB, contact forces, and the tracked end-effector path"><figcaption>UR5e + RG2 · pick &amp; place, wrist RGB, contact forces</figcaption></figure>
+    <figure><img src="assets/nist-board.png" alt="NIST board scene with viewer controls"><figcaption>NIST board · viewer, scripted assembly</figcaption></figure>
     <figure><img src="assets/aloha.png" alt="ALOHA bimanual pick and place"><figcaption>ALOHA · bimanual pick &amp; place</figcaption></figure>
     <figure><img src="assets/husky-maze.png" alt="Husky maze on mixed terrain"><figcaption>Husky · maze, mixed terrain, ego camera</figcaption></figure>
     <figure><img src="assets/franka-plug.png" alt="Franka plug insertion"><figcaption>Franka · plug insertion, 2.5 mm clearance</figcaption></figure>
     <figure><img src="assets/franka-cable.png" alt="Franka cable routing"><figcaption>Franka · cable-end routing into a clip</figcaption></figure>
   </div>
 
-  <h2>NIST Assembly Task Board #1</h2>
-  <figure>
-    <img src="assets/nist-board.png" alt="Franka assembling the NIST Task Board #1">
-    <figcaption>Built from the public NIST STL kit. Holes are primitive rings with 45° lead-ins, so pegs really pass
-      0.1–0.25 mm clearances. Scripted run seats five parts within 1 mm.</figcaption>
-  </figure>
-
   <h2>RL</h2>
   <figure>
-    <img src="assets/franka-insert.png" alt="Learned peg insertion on the NIST board">
-    <figcaption><code>franka_insert</code> · peg in hole from force feedback. Hole and in-hand offsets are hidden;
-      straight-down insertion gets 6/10, PPO 10/10 after 580k steps.</figcaption>
+    <img src="assets/franka-insert.gif" alt="Learned peg insertion on the NIST board, three held-out seeds">
+    <figcaption><code>franka_insert</code> · PPO policy on three held-out seeds, real time. Hole and in-hand offsets
+      are hidden; the policy sees proprioception and the wrench on the part. Straight-down insertion 6/10, PPO 10/10 after 580k steps.</figcaption>
   </figure>
   <div class="grid">
     <figure><img src="assets/rl-dashboard.png" alt="RL dashboard with ALOHA reach policy"><figcaption>Control room · ALOHA reach, mjlab / RSL-RL</figcaption></figure>

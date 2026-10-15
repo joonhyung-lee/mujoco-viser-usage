@@ -8,8 +8,9 @@ Interactive scenes, contact-driven demos, a PPO control room, and a native
 [Architecture](docs/architecture.md) · [mjlab](docs/mjlab.md) · [RL](docs/rl.md)
 
 <p align="center">
-  <img src="docs/assets/pick-place.png" width="100%" alt="UR5e pick and place with wrist RGB, contact forces, and the tracked end-effector path">
+  <img src="docs/assets/nist-board.gif" width="100%" alt="Franka assembling the NIST Task Board #1, 6x speed">
 </p>
+<p align="center">NIST Assembly Task Board #1 · scripted assembly, 6× speed</p>
 
 ## Quick start
 
@@ -46,12 +47,20 @@ Overlays: contact-force arrows, wrist RGB, tracked end-effector path.
 
 <table>
   <tr>
+    <td><img src="docs/assets/pick-place.png" alt="UR5e pick and place with wrist RGB, contact forces, and the tracked end-effector path"></td>
     <td><img src="docs/assets/aloha.png" alt="ALOHA bimanual pick and place"></td>
-    <td><img src="docs/assets/husky-maze.png" alt="Husky maze navigation on mixed terrain"></td>
   </tr>
   <tr>
+    <td align="center">UR5e + RG2 · pick & place, wrist RGB, contact forces</td>
     <td align="center">ALOHA · bimanual pick & place</td>
+  </tr>
+  <tr>
+    <td><img src="docs/assets/husky-maze.png" alt="Husky maze navigation on mixed terrain"></td>
+    <td><img src="docs/assets/nist-board.png" alt="NIST board scene with the viewer controls"></td>
+  </tr>
+  <tr>
     <td align="center">Husky · maze, mixed terrain</td>
+    <td align="center">NIST board · viewer</td>
   </tr>
   <tr>
     <td><img src="docs/assets/franka-plug.png" alt="Franka inserting a plug"></td>
@@ -64,10 +73,6 @@ Overlays: contact-force arrows, wrist RGB, tracked end-effector path.
 </table>
 
 ### NIST Assembly Task Board #1
-
-<p align="center">
-  <img src="docs/assets/nist-board.png" width="100%" alt="Franka assembling the NIST Task Board #1">
-</p>
 
 Built from the public NIST STL kit. Hole positions are measured from the laser-cut plate,
 diameters and 45° lead-ins follow the NIST instructions. MuJoCo collides meshes as convex
@@ -87,8 +92,9 @@ Tasks: `franka_insert`, `aloha_reach`, `aloha_pick_place`, `go2_velocity`.
 PPO over parallel MuJoCo workers; pause, stop, resume from checkpoints; buffered 1× replay.
 
 <p align="center">
-  <img src="docs/assets/franka-insert.png" width="100%" alt="Learned peg insertion on the NIST board">
+  <img src="docs/assets/franka-insert.gif" width="100%" alt="Learned peg insertion on the NIST board, three held-out seeds">
 </p>
+<p align="center"><code>franka_insert</code> · PPO policy, three held-out seeds, real time</p>
 
 `franka_insert` starts with a NIST peg already grasped above its hole. Hole (±5 mm) and
 in-hand (±3 mm, ±5° for square pegs) offsets are hidden; the policy sees proprioception,

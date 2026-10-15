@@ -36,12 +36,6 @@ SHOTS = [
     ("husky-maze", APP + ["navigation/husky_mixed", "--demo"], 45, None),
     ("rl-dashboard", DASHBOARD, 8, None),
     ("rl-go2", DASHBOARD, 4, lambda page: select_scene(page, "Go2 · walk")),
-    (
-        "franka-insert",
-        DASHBOARD,
-        4,
-        lambda page: select_scene(page, "Franka · insert"),
-    ),
 ]
 
 

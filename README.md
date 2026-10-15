@@ -98,9 +98,17 @@ PPO over parallel MuJoCo workers; pause, stop, resume from checkpoints; buffered
 
 `franka_insert` starts with a NIST peg already grasped above its hole. Hole (±5 mm) and
 in-hand (±3 mm, ±5° for square pegs) offsets are hidden; the policy sees proprioception,
-the nominal goal, and the wrench on the part, and outputs 25 Hz TCP deltas. Going straight
-down succeeds only where the 3 mm chamfer absorbs the offset (6/10 seeds); PPO gets 10/10
-after 580k steps on the 16 mm rod.
+the nominal goal, and the wrench on the part, and outputs 25 Hz TCP deltas. Success is the
+AlphaNIST criterion, part within 1 mm of its seated pose. Ten held-out seeds:
+
+| Part | Straight down | PPO | Steps |
+| --- | --- | --- | --- |
+| `rod_16` (⌀16 mm, 0.25 mm clearance) | 6/10 | 10/10 | 0.58M |
+| `peg_16` (16×10 mm, ±5° in-hand yaw) | 7/10 | 8/10 | 1.0M |
+
+Going straight down succeeds only where the 3 mm chamfer absorbs the offset. The square peg
+also has to be rotated into its pocket; the run above had not converged at 1M steps
+(rolling success 0.69 and still rising), so treat its row as a lower bound.
 
 <table>
   <tr>

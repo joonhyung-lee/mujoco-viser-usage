@@ -44,6 +44,15 @@ CPU 학습이며, 기본 worker 수는 4개입니다. UI는 1/2/4/8개, 설정 �
 공칭 구멍으로 곧장 내려가는 스크립트는 챔퍼가 흡수하는 범위에서만 성공하므로(약 70%),
 정책은 접촉 wrench로 나머지를 찾아야 합니다. `part`로 `rod_4`–`rod_16`, `peg_4`–`peg_16` 선택.
 
+held-out seed 10개 결과 (`assets/rl/franka_insert*.json`, 16 workers):
+
+| Part | Straight down | PPO | Steps |
+| --- | --- | --- | --- |
+| `rod_16` (⌀16 mm, 0.25 mm clearance) | 6/10 | 10/10 | 0.58M |
+| `peg_16` (16×10 mm, ±5° in-hand yaw) | 7/10 | 8/10 | 1.0M |
+
+`peg_16`은 1M steps에서 학습 성공률 0.69로 아직 상승 중이었습니다. 체크포인트에서 `--resume`으로 이어서 학습할 수 있습니다.
+
 기본 제어 간격은 20 ms이며 내부 물리는 `mj_step`입니다. 물리 dt의 정수 배수만 허용합니다.
 `terminated`는 성공·실패, `truncated`는 시간 제한으로 구분합니다. 종료 후에는 reset이 필요합니다.
 reset에서만 초기화하고, step에서는 모터 목표만 설정합니다. ALOHA에는 팔 중력 보상을 적용합니다.

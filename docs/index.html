@@ -42,52 +42,54 @@
 <body>
 <main>
   <h1>mujoco-viser-usage</h1>
-  <p class="tagline">MuJoCo robots in the browser. Interactive scenes, contact-driven demos,
-    a PPO control room, and a native mjlab (MuJoCo-Warp) backend, rendered with Viser.</p>
+  <p class="tagline">MuJoCo robots in the browser, rendered with Viser. Interactive scenes,
+    contact-driven demos, a PPO control room, and a native mjlab (MuJoCo-Warp) backend.</p>
   <div class="links">
     <a class="primary" href="https://github.com/joonhyung-lee/mujoco-viser-usage">Code</a>
-    <a href="https://github.com/joonhyung-lee/mujoco-viser-usage/blob/main/docs/mjlab.md">mjlab backend</a>
-    <a href="https://github.com/joonhyung-lee/mujoco-viser-usage/blob/main/docs/rl.md">RL control room</a>
+    <a href="https://github.com/joonhyung-lee/mujoco-viser-usage/blob/main/docs/rl.md">RL</a>
+    <a href="https://github.com/joonhyung-lee/mujoco-viser-usage/blob/main/docs/mjlab.md">mjlab</a>
     <a href="https://github.com/joonhyung-lee/mujoco-viser-usage/blob/main/docs/architecture.md">Architecture</a>
   </div>
 
   <figure>
-    <img src="assets/pick-place.png" alt="UR5e pick & place with ego RGB, contact forces, and tracked trajectory">
-    <figcaption>UR5e + RG2 pick &amp; place. Wrist RGB, contact-force arrows, tracked EEF path. Objects move only through contact.</figcaption>
+    <img src="assets/pick-place.png" alt="UR5e pick and place with wrist RGB, contact forces, and the tracked end-effector path">
+    <figcaption>UR5e + RG2 pick &amp; place. Wrist RGB, contact forces, tracked end-effector path. Objects move through contact only.</figcaption>
   </figure>
 
-  <h2>What is inside</h2>
-  <div class="cards">
-    <div class="card"><h3>Scenes</h3><ul>
-      <li>UR5e, Franka, ALOHA</li><li>Franka plug insertion, cable routing</li>
-      <li>NIST Assembly Task Board #1</li><li>Go1, Go2, Spot (+ arm)</li><li>Husky, TurtleBot3 mazes</li>
-      <li>Ramps / steps / rough / mixed terrain</li></ul></div>
-    <div class="card"><h3>RL control room</h3><ul>
-      <li>PPO, parallel MuJoCo workers</li><li>Pause / stop / resume checkpoints</li>
-      <li>Buffered 1× replay, four workers side by side</li></ul></div>
-    <div class="card"><h3>mjlab backend</h3><ul>
-      <li>ALOHA reach / lift / place / bimanual</li><li>Go2 velocity on all terrains</li>
-      <li>Same-seed scripted vs policy replay</li></ul></div>
+  <h2>Scenes</h2>
+  <div class="grid">
+    <figure><img src="assets/aloha.png" alt="ALOHA bimanual pick and place"><figcaption>ALOHA · bimanual pick &amp; place</figcaption></figure>
+    <figure><img src="assets/husky-maze.png" alt="Husky maze on mixed terrain"><figcaption>Husky · maze, mixed terrain, ego camera</figcaption></figure>
+    <figure><img src="assets/franka-plug.png" alt="Franka plug insertion"><figcaption>Franka · plug insertion, 2.5 mm clearance</figcaption></figure>
+    <figure><img src="assets/franka-cable.png" alt="Franka cable routing"><figcaption>Franka · cable-end routing into a clip</figcaption></figure>
   </div>
 
-  <h2>Gallery</h2>
+  <h2>NIST Assembly Task Board #1</h2>
+  <figure>
+    <img src="assets/nist-board.png" alt="Franka assembling the NIST Task Board #1">
+    <figcaption>Built from the public NIST STL kit. Holes are primitive rings with 45° lead-ins, so pegs really pass
+      0.1–0.25 mm clearances. Scripted run seats five parts within 1 mm.</figcaption>
+  </figure>
+
+  <h2>RL</h2>
+  <figure>
+    <img src="assets/franka-insert.png" alt="Learned peg insertion on the NIST board">
+    <figcaption><code>franka_insert</code> · peg in hole from force feedback. Hole and in-hand offsets are hidden;
+      straight-down insertion gets 6/10, PPO 10/10 after 580k steps.</figcaption>
+  </figure>
   <div class="grid">
-    <figure><img src="assets/aloha.png" alt="ALOHA two-arm pick and place"><figcaption>ALOHA · two-arm pick &amp; place</figcaption></figure>
-    <figure><img src="assets/husky-maze.png" alt="Husky maze on mixed terrain"><figcaption>Husky · maze on mixed terrain, ego camera</figcaption></figure>
-    <figure><img src="assets/rl-dashboard.png" alt="RL dashboard with ALOHA reach policy"><figcaption>RL control room · ALOHA reach, mjlab / RSL-RL PPO</figcaption></figure>
-    <figure><img src="assets/rl-go2.png" alt="RL dashboard with Go2 policy"><figcaption>RL control room · Go2 velocity, SB3 PPO</figcaption></figure>
+    <figure><img src="assets/rl-dashboard.png" alt="RL dashboard with ALOHA reach policy"><figcaption>Control room · ALOHA reach, mjlab / RSL-RL</figcaption></figure>
+    <figure><img src="assets/rl-go2.png" alt="RL dashboard with Go2 policy"><figcaption>Control room · Go2 velocity, SB3 PPO</figcaption></figure>
     <figure><img src="assets/mjlab-comparison.png" alt="ALOHA same-seed comparison"><figcaption>Same seed · scripted vs policy, replay RGB</figcaption></figure>
-    <figure><img src="assets/go2-comparison.png" alt="Go2 same-seed comparison"><figcaption>Same seed · Go2 scripted trot vs policy</figcaption></figure>
-    <figure><img src="assets/franka-plug.png" alt="Franka plug insertion"><figcaption>Franka · plug insertion, 2.5 mm clearance</figcaption></figure>
-    <figure><img src="assets/nist-board.png" alt="NIST task board assembly"><figcaption>NIST Task Board #1 · pegs, gear, nut from the NIST STL kit</figcaption></figure>
+    <figure><img src="assets/go2-comparison.png" alt="Go2 same-seed comparison"><figcaption>Same seed · Go2 trot vs policy</figcaption></figure>
   </div>
 
   <h2>Quick start</h2>
 <pre><code>uv sync
 uv run mujoco-viser-usage                            # http://127.0.0.1:8080
-uv run mujoco-viser-usage manipulation/aloha --demo
+uv run mujoco-viser-usage manipulation/nist_board --demo
 uv run --extra rl mujoco-viser-rl --port 8090        # PPO control room
-uv sync --extra mjlab                                # mjlab / MuJoCo-Warp backend</code></pre>
+uv sync --extra mjlab                                # MuJoCo-Warp backend</code></pre>
 
   <footer>
     Robot models from <a href="https://github.com/google-deepmind/mujoco_menagerie">MuJoCo Menagerie</a> and related sources;

@@ -240,8 +240,8 @@ class ControlRoom:
             client.camera.look_at = target + np.array([0.5, 0.0, 0.1])
             client.camera.fov = np.deg2rad(45)
         elif self.loaded_task == "franka_insert":
-            client.camera.position = (1.1, -0.9, 0.7)
-            client.camera.look_at = (0.5, -0.05, 0.05)
+            client.camera.position = (0.95, -0.6, 0.42)
+            client.camera.look_at = (0.56, -0.05, 0.03)
             client.camera.fov = np.deg2rad(43)
         else:
             client.camera.position = (1.25, -1.45, 1.3)
@@ -313,7 +313,7 @@ class ControlRoom:
             self.goal_handles = [
                 self.server.scene.add_icosphere(
                     f"/rl_goal/{i}",
-                    radius=0.023,
+                    radius=0.008 if task == "franka_insert" else 0.023,
                     color=(118, 185, 0),
                     opacity=0.5,
                     visible=False,

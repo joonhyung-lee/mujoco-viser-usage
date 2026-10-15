@@ -1,8 +1,8 @@
 """Cross-interpreter lifecycle and model replay for the native dashboard backend."""
 
+import importlib.util
 import time
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 import pytest
@@ -13,9 +13,7 @@ from mujoco_viser_usage.rl.dashboard import ControlRoom
 from mujoco_viser_usage.rl.storage import read_json
 from mujoco_viser_usage.rl.supervisor import RunSupervisor
 
-NATIVE_PYTHON = (
-    Path(__file__).resolve().parents[1] / "integrations/mjlab/.venv/bin/python"
-)
+HAS_MJLAB = importlib.util.find_spec("mjlab") is not None
 
 
 def await_state(supervisor, run, predicate, timeout=40):
@@ -39,9 +37,7 @@ def test_native_request_roundtrip_and_invalid_task():
     assert MjlabTrainConfig(task="go2_velocity", terrain="mixed").terrain == "mixed"
 
 
-@pytest.mark.skipif(
-    not NATIVE_PYTHON.exists(), reason="uv sync --project integrations/mjlab required"
-)
+@pytest.mark.skipif(not HAS_MJLAB, reason="uv sync --extra mjlab required")
 def test_native_pause_stop_resume_and_dashboard_replay(tmp_path):
     supervisor = RunSupervisor(tmp_path)
     config = MjlabTrainConfig(workers=2, n_steps=8, total_timesteps=4096)
@@ -110,9 +106,7 @@ def test_native_pause_stop_resume_and_dashboard_replay(tmp_path):
         supervisor.close()
 
 
-@pytest.mark.skipif(
-    not NATIVE_PYTHON.exists(), reason="uv sync --project integrations/mjlab required"
-)
+@pytest.mark.skipif(not HAS_MJLAB, reason="uv sync --extra mjlab required")
 def test_native_go2_run_replays_in_dashboard(tmp_path):
     supervisor = RunSupervisor(tmp_path)
     config = MjlabTrainConfig(

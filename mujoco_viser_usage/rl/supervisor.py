@@ -1,5 +1,6 @@
 """Own training/evaluation subprocesses; only their process groups are terminated."""
 
+import importlib.util
 import os
 import signal
 import subprocess
@@ -20,20 +21,14 @@ class RunSupervisor:
 
     @staticmethod
     def mjlab_python():
-        executable = Path(
-            os.environ.get(
-                "MUJOCO_VISER_MJLAB_PYTHON",
-                str(
-                    Path(__file__).resolve().parents[2]
-                    / "integrations/mjlab/.venv/bin/python"
-                ),
-            )
-        )
-        if not executable.is_file():
-            raise ValueError(
-                "Run uv sync --project integrations/mjlab before starting mjlab"
-            )
-        return str(executable)
+        executable = os.environ.get("MUJOCO_VISER_MJLAB_PYTHON")
+        if executable is None:
+            if importlib.util.find_spec("mjlab") is None:
+                raise ValueError("Run uv sync --extra mjlab before starting mjlab")
+            return sys.executable
+        if not Path(executable).is_file():
+            raise ValueError(f"MUJOCO_VISER_MJLAB_PYTHON not found: {executable}")
+        return executable
 
     def start(
         self, config: TrainConfig | MjlabTrainConfig, resume: Path | None = None

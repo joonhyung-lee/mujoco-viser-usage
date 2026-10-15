@@ -1,4 +1,4 @@
-"""Optional native mjlab integration tests; run in integrations/mjlab environment."""
+"""Optional native mjlab integration tests; require `uv sync --extra mjlab`."""
 
 import numpy as np
 import pytest

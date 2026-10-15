@@ -78,13 +78,13 @@ uv run --extra rl mujoco-viser-rl --port 8090
 
 ## mjlab backend
 
-Same tasks on MuJoCo-Warp with RSL-RL. Isolated environment (mjlab pins MuJoCo 3.11).
+Same tasks on MuJoCo-Warp with RSL-RL. Optional extra; pulls torch and pins MuJoCo 3.11.
 
 ```bash
-uv sync --project integrations/mjlab
-uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
+uv sync --extra mjlab
+uv run --extra mjlab python -m mujoco_viser_usage.mjlab train \
   Viser-Go2-Velocity-v0 --gpu-ids '[0]' --env.scene.num-envs 512
-uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab.evaluate <run-dir>
+uv run --extra mjlab python -m mujoco_viser_usage.mjlab.evaluate <run-dir>
 uv run python -m mujoco_viser_usage.rl.comparison runs/<comparison-dir>
 ```
 
@@ -108,7 +108,6 @@ timelines, EEF trails, recorded contact forces, and reconstructed wrist RGB.
 ```text
 assets/               robot MJCF + meshes (manipulation/ locomotion/ navigation/), RL configs
 docs/                 project page, architecture, mjlab, RL notes
-integrations/mjlab/   pinned mjlab / MuJoCo-Warp environment
 mujoco_viser_usage/   package: viewer, simulation, scenes, rl/, mjlab/, tools/
 notebooks/            runnable examples
 tests/
@@ -119,7 +118,7 @@ tests/
 ```bash
 uv run pytest -q
 uv run ruff check .
-uv run --project integrations/mjlab --with pytest python -m pytest tests/test_mjlab.py -q
+uv run --extra mjlab pytest tests/test_mjlab.py -q
 ```
 
 Robot models come from [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie)

@@ -6,15 +6,14 @@ Their checkpoints are not interchangeable.
 
 ## Environment
 
-The integration is isolated because mjlab 1.6.0 requires MuJoCo 3.11 while the
-existing viewer environment uses a newer MuJoCo. Do not install mjlab into the
-root virtual environment.
+mjlab is an optional extra of the root project. It pins MuJoCo 3.11 and installs
+torch, Warp, and RSL-RL into the same virtual environment as the viewer.
 
 ```sh
-uv sync --project integrations/mjlab
+uv sync --extra mjlab
 ```
 
-The nested lockfile pins the complete environment. Use Linux/NVIDIA CUDA for
+The root lockfile pins the complete environment. Use Linux/NVIDIA CUDA for
 substantial training. This pinned version also executes CPU smoke tests on macOS;
 that does not establish GPU throughput or policy quality.
 
@@ -42,8 +41,8 @@ an **Open same-seed comparison** link after completion. Stop comparison cancels 
 evaluation. The dashboard owns its evaluation/viewer processes and closes them when
 it exits; existing unrelated servers are unaffected.
 
-Training uses `integrations/mjlab/.venv/bin/python`. For an installed wheel or custom
-environment, set `MUJOCO_VISER_MJLAB_PYTHON` to that environment's Python executable.
+Training runs in the dashboard's own interpreter when mjlab is importable. To use a
+separate environment, set `MUJOCO_VISER_MJLAB_PYTHON` to its Python executable.
 The browser viewer stays in the root environment and loads the run's exported model,
 including recorded mocap poses and contact-force vectors. SB3 history stays readable.
 
@@ -80,7 +79,7 @@ is the trot with zero residual.
 Small CPU integration smoke test (not a trained manipulation policy):
 
 ```sh
-uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
+uv run --extra mjlab python -m mujoco_viser_usage.mjlab train \
   Viser-Aloha-Reach-v0 --gpu-ids '[]' --env.scene.num-envs 2 \
   --agent.num-steps-per-env 8 --agent.max-iterations 2 \
   --agent.algorithm.num-mini-batches 2 --agent.algorithm.num-learning-epochs 1 \
@@ -90,7 +89,7 @@ uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
 Starting configuration for a GPU run; tune environment count to available memory:
 
 ```sh
-uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab train \
+uv run --extra mjlab python -m mujoco_viser_usage.mjlab train \
   Viser-Aloha-Reach-v0 --gpu-ids '[0]' --env.scene.num-envs 512 \
   --agent.max-iterations 1000 --log-root runs/mjlab
 ```
@@ -109,7 +108,7 @@ experiment artifacts: load artifacts from trusted runs.
 Use the timestamped run directory printed by training:
 
 ```sh
-uv run --project integrations/mjlab python -m mujoco_viser_usage.mjlab.evaluate \
+uv run --extra mjlab python -m mujoco_viser_usage.mjlab.evaluate \
   runs/mjlab-smoke/viser_aloha/<timestamp> --seeds 1000003 1000004
 ```
 
@@ -171,14 +170,14 @@ native MuJoCo quaternion interpolation.
 ## Validation
 
 ```sh
-uv run --project integrations/mjlab --with pytest python -m pytest tests/test_mjlab.py -q
+uv run --extra mjlab pytest tests/test_mjlab.py -q
 uv run pytest tests/test_mjlab_dashboard.py tests/test_playback.py tests/test_dashboard_scenes.py tests/test_overlays.py -q
 ```
 
 Physical baseline verification (longer than the smoke tests):
 
 ```sh
-uv run --project integrations/mjlab python -m mujoco_viser_usage.tools.check_mjlab_baselines
+uv run --extra mjlab python -m mujoco_viser_usage.tools.check_mjlab_baselines
 ```
 
 On the local CPU, seed 1000003 completed reach, lift, place, and bimanual through

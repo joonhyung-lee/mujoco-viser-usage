@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "mujoco-viser-usage"
 version = "0.1.0"
 description = "MuJoCo robotics experiments with a Viser browser viewer"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = ["mujoco>=3.3,<4", "viser>=1.0,<2", "numpy>=2,<3", "trimesh>=4.6,<5"]
 
 [project.scripts]
@@ -20,6 +20,7 @@ rl = [
     "psutil>=7,<8",
     "stable-baselines3>=2.7,<3",
 ]
+mjlab = ["mujoco-viser-usage[rl]", "mjlab==1.6.0"]
 
 [dependency-groups]
 dev = [

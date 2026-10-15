@@ -35,11 +35,15 @@ class ParallelOverview:
             if mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, "left/gripper") >= 0
             else "robot/"
         )
-        self.manipulation = (
+        self.bimanual = (
             mujoco.mj_name2id(
                 model, mujoco.mjtObj.mjOBJ_SITE, self.site_prefix + "left/gripper"
             )
             >= 0
+        )
+        self.manipulation = (
+            self.bimanual
+            or mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, "tcp") >= 0
         )
         spacing = (2.0, 1.6) if self.manipulation else (6.0, 2.8)
         self.center = np.array(
@@ -104,7 +108,7 @@ class ParallelOverview:
             )
 
             goals, trails = [], []
-            if self.manipulation:
+            if self.bimanual:
                 for i, side in enumerate(("left", "right")):
                     goals.append(
                         server.scene.add_icosphere(

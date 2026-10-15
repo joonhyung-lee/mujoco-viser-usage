@@ -1,0 +1,1 @@
+{"task":"franka_insert","part":"rod_16","seed":11,"workers":16,"total_timesteps":1000000,"n_steps":128,"batch_size":512,"max_episode_steps":100,"control_dt":0.04,"save_every":65536}

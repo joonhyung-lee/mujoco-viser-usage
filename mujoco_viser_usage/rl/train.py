@@ -15,10 +15,10 @@ def make_worker(config, run, rank):
     # Imports inside the child keep the UI/supervisor independent of torch.
     from stable_baselines3.common.monitor import Monitor
 
-    from .envs import RobotEnv
+    from .envs import make_env
     from .storage import EpisodeRecorder
 
-    return Monitor(EpisodeRecorder(RobotEnv(config), Path(run), rank))
+    return Monitor(EpisodeRecorder(make_env(config), Path(run), rank))
 
 
 def train(config: TrainConfig, run: Path, resume: Path | None = None):
@@ -209,7 +209,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path)
     parser.add_argument(
-        "--task", choices=["go2_velocity", "aloha_reach", "aloha_pick_place"]
+        "--task",
+        choices=["go2_velocity", "aloha_reach", "aloha_pick_place", "franka_insert"],
     )
     parser.add_argument("--workers", type=int)
     parser.add_argument("--steps", type=int)

@@ -12,6 +12,14 @@ from ..simulation import Simulation
 from .config import TASK_SCENES, TrainConfig, scene_path
 
 
+def make_env(config: TrainConfig) -> gym.Env:
+    if config.task == "franka_insert":
+        from .insert import FrankaInsertEnv
+
+        return FrankaInsertEnv(config)
+    return RobotEnv(config)
+
+
 class RobotEnv(gym.Env):
     metadata: ClassVar[dict] = {"render_modes": []}
 

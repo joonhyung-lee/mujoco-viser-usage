@@ -83,7 +83,9 @@ uv sync --extra rl
 uv run --extra rl mujoco-viser-rl --port 8090
 ```
 
-- Tasks: `go2_velocity` (residual over trot), `aloha_reach`, `aloha_pick_place`
+- Tasks: `go2_velocity` (residual over trot), `aloha_reach`, `aloha_pick_place`,
+  `franka_insert` (NIST peg in hole from force feedback; hole and in-hand offsets hidden).
+  rod_16, 580k steps: policy 10/10 on held-out seeds vs 6/10 for straight-down insertion
 - PPO with parallel MuJoCo workers; pause / stop / resume from checkpoints
 - Buffered 1× rollout replay, up to four workers side by side, full episode history
 

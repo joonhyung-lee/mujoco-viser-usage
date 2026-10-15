@@ -12,17 +12,19 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 
 from mujoco_viser_usage.rl.config import TrainConfig
-from mujoco_viser_usage.rl.envs import RobotEnv
+from mujoco_viser_usage.rl.envs import RobotEnv, make_env
 from mujoco_viser_usage.rl.evaluate import evaluate
 from mujoco_viser_usage.rl.storage import EpisodeRecorder, read_json, read_jsonl
 from mujoco_viser_usage.rl.supervisor import RunSupervisor
 from mujoco_viser_usage.rl.train import train
 
 
-@pytest.mark.parametrize("task", ["go2_velocity", "aloha_reach", "aloha_pick_place"])
+@pytest.mark.parametrize(
+    "task", ["go2_velocity", "aloha_reach", "aloha_pick_place", "franka_insert"]
+)
 def test_environment_contract_seed_and_episode_boundary(task):
-    config = TrainConfig(task=task, max_episode_steps=3)
-    env = RobotEnv(config)
+    config = TrainConfig(task=task, max_episode_steps=3, control_dt=0.04)
+    env = make_env(config)
     check_env(env)
     a, _ = env.reset(seed=91)
     b, _ = env.reset(seed=91)
@@ -38,6 +40,31 @@ def test_environment_contract_seed_and_episode_boundary(task):
     assert terminated or truncated
     with pytest.raises(RuntimeError):
         env.step(np.zeros(env.action_space.shape))
+    env.close()
+
+
+def test_insertion_baseline_beats_random_but_not_every_offset():
+    env = make_env(
+        TrainConfig(
+            task="franka_insert", part="peg_16", control_dt=0.04, max_episode_steps=60
+        )
+    )
+    outcomes = {}
+    for name, policy in (
+        ("scripted", lambda: env.scripted_action()),
+        ("random", lambda: env.action_space.sample()),
+    ):
+        wins = 0
+        for seed in range(6):
+            env.reset(seed=seed)
+            while True:
+                _, _, terminated, truncated, info = env.step(policy())
+                if terminated or truncated:
+                    break
+            wins += info["is_success"]
+            assert info["max_penetration"] < 0.001
+        outcomes[name] = wins
+    assert outcomes["random"] < outcomes["scripted"] < 6, outcomes
     env.close()
 
 

@@ -26,6 +26,7 @@ TASK_LABELS = {
     "ALOHA · pick & place": "aloha_pick_place",
     "ALOHA · reach": "aloha_reach",
     "Go2 · walk": "go2_velocity",
+    "Franka · insert": "franka_insert",
 }
 
 
@@ -238,6 +239,10 @@ class ControlRoom:
             client.camera.position = target + np.array([1.8, -2.4, 1.8])
             client.camera.look_at = target + np.array([0.5, 0.0, 0.1])
             client.camera.fov = np.deg2rad(45)
+        elif self.loaded_task == "franka_insert":
+            client.camera.position = (1.1, -0.9, 0.7)
+            client.camera.look_at = (0.5, -0.05, 0.05)
+            client.camera.fov = np.deg2rad(43)
         else:
             client.camera.position = (1.25, -1.45, 1.3)
             client.camera.look_at = (0.0, 0.04, 0.15)
@@ -278,7 +283,7 @@ class ControlRoom:
             from ..scenes.go2_task import configure_servos
 
             configure_servos(self.sim)
-        else:
+        elif task.startswith("aloha"):
             from ..scenes.aloha_task import configure_grasp_contacts
 
             configure_grasp_contacts(self.sim)
@@ -548,10 +553,11 @@ class ControlRoom:
                     client.camera.position = np.asarray(client.camera.position) + delta
                     client.camera.look_at = look_at + delta
             self._camera_target = target
+        targets = frame["targets"] if self.loaded_task != "go2_velocity" else []
         for i, handle in enumerate(self.goal_handles):
-            handle.visible = self.loaded_task != "go2_velocity"
+            handle.visible = i < len(targets)
             if handle.visible:
-                handle.position = frame["targets"][i]
+                handle.position = targets[i]
 
     def _refresh_frame(self):
         self.clock.advance(time.monotonic(), float(self.replay_speed.value))

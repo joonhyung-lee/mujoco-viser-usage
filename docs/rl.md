@@ -33,11 +33,16 @@ CPU 학습이며, 기본 worker 수는 4개입니다. UI는 1/2/4/8개, 설정 �
 | `go2_velocity` | 관절 상태, 몸체 속도·중력 방향, 목표 속도, gait phase / trot 기준 관절각에 대한 12차원 residual | 목표 속도 추종·upright, lateral/angular/action 비용 / 3 m 전진 성공, 넘어짐·통로 이탈 실패, 시간 제한 |
 | `aloha_reach` | 양팔 관절, tool·물체·목표 위치, 이전 행동 / 관절 목표 증분과 gripper opening 14차원 | 두 tool의 목표 접근, 거리 감소, 성공 보너스 / 두 tool이 각 목표 2.5 cm 이내, 물체 낙하, 시간 제한 |
 | `aloha_pick_place` | 양팔·물체·목표 상태 / 관절 목표 증분과 gripper opening 14차원 | tool 접근, lift, 물체의 목표 접근 / 두 물체가 각 목표 2.5 cm 이내, 물체 낙하, 시간 제한 |
+| `franka_insert` | 관절 상태, TCP·TCP 목표(공칭 구멍 기준), gripper 폭, 파트에 걸리는 wrench, 이전 행동. 파트 pose는 관측 안 함 / 25 Hz TCP 증분 (x, y, z, yaw) 4차원, IK로 관절 목표 변환 | 파트-구멍 거리 감소, 근접, 1 mm 성공 보너스 / 1 mm 이내 성공(AlphaNIST 기준), 파트 낙하 실패, 시간 제한 |
 
 `aloha_reach` 목표는 관절 범위 안의 scratch FK에서 생성합니다. `go2_velocity`는
 스크립트 trot 위에 RL 보정을 학습하는 residual-control 예제입니다. 처음부터 보행을
 학습하는 설정과 구별됩니다. `aloha_pick_place`는 더 어려운 학습 환경이며, 짧은 기본 학습으로
 집기 성공이나 정책 수렴이 보장되지는 않습니다. 샘플용 ALOHA 자동 pick/place는 별도의 IK 제어기입니다.
+`franka_insert`는 NIST 보드 위에서 파트를 이미 쥔 채 시작합니다. 구멍 위치 ±5 mm, 손 안의
+파트 오프셋 ±3 mm, 사각 페그는 yaw ±5°가 매 에피소드 바뀌고 정책은 이를 직접 보지 못합니다.
+공칭 구멍으로 곧장 내려가는 스크립트는 챔퍼가 흡수하는 범위에서만 성공하므로(약 70%),
+정책은 접촉 wrench로 나머지를 찾아야 합니다. `part`로 `rod_4`–`rod_16`, `peg_4`–`peg_16` 선택.
 
 기본 제어 간격은 20 ms이며 내부 물리는 `mj_step`입니다. 물리 dt의 정수 배수만 허용합니다.
 `terminated`는 성공·실패, `truncated`는 시간 제한으로 구분합니다. 종료 후에는 reset이 필요합니다.
@@ -49,6 +54,7 @@ reset에서만 초기화하고, step에서는 모터 목표만 설정합니다. 
 uv run --extra rl mujoco-viser-train --config assets/rl/go2_velocity.json
 uv run --extra rl mujoco-viser-train --config assets/rl/aloha_reach.json
 uv run --extra rl mujoco-viser-train --config assets/rl/aloha_pick_place.json
+uv run --extra rl mujoco-viser-train --config assets/rl/franka_insert.json
 ```
 
 학습 명령은 실제 결과 경로를 `RUN_DIR=...`로 출력합니다. 다음 `RUN`에는 그 경로를 넣습니다.

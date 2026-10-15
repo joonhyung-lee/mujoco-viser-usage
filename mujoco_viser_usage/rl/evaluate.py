@@ -17,7 +17,7 @@ def evaluate(checkpoint: Path, run: Path, episodes: int = 3):
     import torch
     from stable_baselines3 import PPO
 
-    from .envs import RobotEnv
+    from .envs import make_env
     from .storage import EpisodeRecorder
 
     if episodes < 1:
@@ -59,7 +59,7 @@ def evaluate(checkpoint: Path, run: Path, episodes: int = 3):
 
     try:
         publish("starting")
-        env = EpisodeRecorder(RobotEnv(config), run, 0)
+        env = EpisodeRecorder(make_env(config), run, 0)
         policy = PPO.load(checkpoint, device="cpu")
         for episode in range(episodes):
             obs, _ = env.reset(seed=config.seed + episode)

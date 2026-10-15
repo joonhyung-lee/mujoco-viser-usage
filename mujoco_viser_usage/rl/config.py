@@ -20,6 +20,9 @@ class TrainConfig:
     task: str = "go2_velocity"
     terrain: str = "flat"
     part: str = "rod_16"  # franka_insert only
+    reward: str = "dense"  # franka_insert: dense | sparse (SGS paper)
+    configs: int = 0  # franka_insert: fixed task-configuration buffer size, 0 = none
+    sampler: str = "uniform"  # uniform | linear | sgs over that buffer
     seed: int = 7
     workers: int = 4
     total_timesteps: int = 16384
@@ -51,6 +54,16 @@ class TrainConfig:
             raise ValueError("Terrain variants apply only to Go2 locomotion")
         if self.part not in INSERT_PARTS:
             raise ValueError(f"Unknown insertion part: {self.part}")
+        if self.reward not in ("dense", "sparse") or self.sampler not in (
+            "uniform",
+            "linear",
+            "sgs",
+        ):
+            raise ValueError("reward must be dense|sparse, sampler uniform|linear|sgs")
+        if not isinstance(self.configs, int) or self.configs < 0:
+            raise ValueError("configs must be a nonnegative integer")
+        if self.sampler != "uniform" and not self.configs:
+            raise ValueError("linear and sgs samplers need a configuration buffer")
         if self.seed < 0:
             raise ValueError("seed must be nonnegative")
         if self.task not in TASK_SCENES:

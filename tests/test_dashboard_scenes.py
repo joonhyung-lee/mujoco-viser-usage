@@ -8,7 +8,7 @@ import pytest
 pytest.importorskip("stable_baselines3")
 from mujoco_viser_usage.rl.config import TrainConfig, scene_path
 from mujoco_viser_usage.rl.dashboard import ControlRoom
-from mujoco_viser_usage.rl.storage import write_json, write_npz
+from mujoco_viser_usage.rl.storage import append_json, write_json, write_npz
 from mujoco_viser_usage.simulation import Simulation
 
 
@@ -51,5 +51,32 @@ def test_scene_switch_uses_matching_model_and_trace(tmp_path):
         assert len(room.overview.roots) == 1
         assert len(room.overview.trails[0]) == 2
         assert len(room.overview.goals[0]) == 2
+    finally:
+        room.close()
+
+
+def test_sampler_panel_follows_the_selected_run(tmp_path):
+    run = make_run(tmp_path, "franka_insert")
+    for steps in (100, 200):
+        append_json(
+            run / "sampler.jsonl",
+            {
+                "steps": steps,
+                "episodes": steps // 10,
+                **{f"share_{s}": 1 / 3 for s in ("near_goal", "stable", "reaching")},
+                **{
+                    f"success_{s}": steps / 400
+                    for s in ("near_goal", "stable", "reaching")
+                },
+            },
+        )
+    room = ControlRoom(tmp_path, port=0)
+    try:
+        room._preview_task("Franka · insert")
+        assert room.selected_run == run
+        room._refresh_status()
+        assert room.sampler_folder.visible
+        assert room.sampler_plots["success"].data[1][-1] == pytest.approx(0.5)
+        room._preview_task("Franka · insert")
     finally:
         room.close()

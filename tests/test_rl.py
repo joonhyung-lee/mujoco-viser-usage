@@ -68,6 +68,39 @@ def test_insertion_baseline_beats_random_but_not_every_offset():
     env.close()
 
 
+def test_success_guided_sampling_trains_over_a_configuration_buffer(tmp_path):
+    from mujoco_viser_usage.rl.configs import STRATEGIES, sample_configs
+    from mujoco_viser_usage.rl.sgs import SuccessGuidedSampler
+
+    sampler = SuccessGuidedSampler(sample_configs(30, "rod_16", 0), 0, history=10)
+    for k in range(10):
+        sampler.update(0, True), sampler.update(1, k % 2 == 0), sampler.update(2, False)
+    p = sampler.probabilities()
+    assert p[1] > 5 * p[0] and np.isclose(p[0], p[2]) and np.isclose(p.sum(), 1)
+    config = TrainConfig(
+        task="franka_insert",
+        reward="sparse",
+        configs=12,
+        sampler="sgs",
+        workers=2,
+        total_timesteps=128,
+        n_steps=32,
+        batch_size=64,
+        max_episode_steps=8,
+        control_dt=0.04,
+        save_every=1000,
+    )
+    run = tmp_path / "sgs"
+    train(config, run)
+    assert read_json(run / "status.json")["state"] == "completed"
+    with np.load(run / "sampler.npz") as state:
+        assert state["visits"].sum() >= 2 and state["configs"].shape == (12, 10)
+    episodes = read_jsonl(run / "workers/0/episodes.jsonl")
+    assert episodes and all(e["length"] <= 8 for e in episodes)
+    report = evaluate(run / "checkpoints/final.zip", tmp_path / "eval", episodes=3)
+    assert sorted(report["strategies"]) == sorted(STRATEGIES)
+
+
 def test_episode_trace_retains_real_state_and_seed(tmp_path):
     env = EpisodeRecorder(
         RobotEnv(TrainConfig(task="aloha_reach", max_episode_steps=3, record_every=2)),

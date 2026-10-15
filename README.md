@@ -108,7 +108,14 @@ AlphaNIST criterion, part within 1 mm of its seated pose. Ten held-out seeds:
 
 Going straight down succeeds only where the 3 mm chamfer absorbs the offset. The square peg
 also has to be rotated into its pocket; the run above had not converged at 1M steps
-(rolling success 0.69 and still rising), so treat its row as a lower bound.
+(rolling success 0.69 and still rising), so treat its row as a lower bound. These rows
+use the dense reward and hovering starts (`reward=dense`, `configs=0`); the environment has
+since gained a gripper action, so reproducing them means retraining.
+
+The same environment also runs the sampler from *A Balanced Data Diet* (Success-Guided
+Sampling, CoRL 2026) over a fixed buffer of start configurations with the paper's sparse
+reward: see [docs/sgs.md](docs/sgs.md) for the small-scale pilot and what it did and did
+not show.
 
 <table>
   <tr>

@@ -35,6 +35,7 @@ def evaluate(checkpoint: Path, run: Path, episodes: int = 3):
     steps = 0
     returns = []
     successes = []
+    strategies = []
     stop = False
     started = time.time()
 
@@ -61,8 +62,15 @@ def evaluate(checkpoint: Path, run: Path, episodes: int = 3):
         publish("starting")
         env = EpisodeRecorder(make_env(config), run, 0)
         policy = PPO.load(checkpoint, device="cpu")
+        held_out = None
+        if getattr(config, "configs", 0):
+            # Fresh configurations the sampler never saw, balanced over strategies.
+            from .configs import sample_configs
+
+            held_out = sample_configs(episodes, config.part, config.seed)
         for episode in range(episodes):
-            obs, _ = env.reset(seed=config.seed + episode)
+            options = {"config": held_out[episode]} if held_out else None
+            obs, _ = env.reset(seed=config.seed + episode, options=options)
             total = 0.0
             while True:
                 command = read_json(run / "control.json", {}).get("command", "run")
@@ -82,6 +90,7 @@ def evaluate(checkpoint: Path, run: Path, episodes: int = 3):
                 if terminated or truncated:
                     returns.append(total)
                     successes.append(info["is_success"])
+                    strategies.append(info.get("strategy"))
                     append_json(
                         run / "metrics.jsonl",
                         {"steps": steps, "mean_return": float(np.mean(returns))},
@@ -93,6 +102,7 @@ def evaluate(checkpoint: Path, run: Path, episodes: int = 3):
             "episodes": len(returns),
             "returns": returns,
             "successes": successes,
+            "strategies": strategies,
             "mean_return": float(np.mean(returns)) if returns else None,
             "success_rate": float(np.mean(successes)) if successes else None,
             "checkpoint": str(checkpoint),

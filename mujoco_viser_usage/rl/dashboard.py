@@ -190,6 +190,47 @@ class ControlRoom:
                 )
                 self.worker_table = gui.add_markdown("No workers yet.")
                 self.metrics = gui.add_markdown("")
+            with gui.add_folder(
+                "Sampler", expand_by_default=False
+            ) as self.sampler_folder:
+                gui.add_markdown(
+                    "Share of resets per start strategy and their success rates "
+                    "over the fixed configuration buffer."
+                )
+                self.sampler_plots = {}
+                for key, title in (
+                    ("share", "Sampling share"),
+                    ("success", "Success rate"),
+                ):
+                    self.sampler_plots[key] = gui.add_uplot(
+                        data=(
+                            np.array([0.0]),
+                            np.array([0.0]),
+                            np.array([0.0]),
+                            np.array([0.0]),
+                        ),
+                        series=(
+                            {},
+                            {
+                                "label": f"{title} · near goal",
+                                "stroke": "#76b900",
+                                "width": 2,
+                            },
+                            {
+                                "label": f"{title} · hovering",
+                                "stroke": "#4fa3ff",
+                                "width": 2,
+                            },
+                            {
+                                "label": f"{title} · reaching",
+                                "stroke": "#ff8c42",
+                                "width": 2,
+                            },
+                        ),
+                        scales={"x": {"time": False}, "y": {"range": (0.0, 1.0)}},
+                        height=150,
+                    )
+            self.sampler_folder.visible = False
             gui.add_markdown(
                 "PPO policy rollout. A short run does not imply successful grasping."
             )
@@ -662,6 +703,21 @@ class ControlRoom:
                         frame["contact_force"].reshape(-1, 3),
                     )
 
+    def _refresh_sampler(self, run):
+        history = read_jsonl(run / "sampler.jsonl")
+        self.sampler_folder.visible = bool(history)
+        if not history:
+            return
+        steps = np.array([h["steps"] for h in history], dtype=float)
+        for key, plot in self.sampler_plots.items():
+            plot.data = (
+                steps,
+                *(
+                    np.array([h[f"{key}_{name}"] for h in history], dtype=float)
+                    for name in ("near_goal", "stable", "reaching")
+                ),
+            )
+
     def _refresh_runs(self):
         runs = sorted(
             [
@@ -720,6 +776,7 @@ class ControlRoom:
         self.status.content = f"**{'mjlab / RSL-RL' if self._native_run() else 'SB3'} PPO · {state.get('state', 'starting')}** · {state.get('run_steps', 0):,} steps · R {reward}"
         if state.get("error"):
             self.notice.content = f"**Process error:** {state['error']}"
+        self._refresh_sampler(run)
         records = []
         rows = [
             "| Worker | PID | State | Episode | Return |",

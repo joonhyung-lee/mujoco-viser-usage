@@ -163,6 +163,8 @@ class EpisodeRecorder(gym.Wrapper):
                 "started_at": self.started_at,
                 "finished_at": time.time(),
                 "distance": float(info.get("distance", 0.0)),
+                "config": int(info.get("config", -1)),
+                "strategy": info.get("strategy"),
                 "trace": trace_name,
             },
         )

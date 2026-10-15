@@ -37,6 +37,7 @@ with ViserParser(viewer=False) as robot:
 | Domain | Robots | Demo |
 | --- | --- | --- |
 | Manipulation | UR5e + RG2, Franka, ALOHA | Contact-based pick & place (no welds, no teleport) |
+| Franka tasks | `franka_plug`, `franka_cable` | Plug insertion (2.5 mm clearance), cable-end routing into a clip |
 | Locomotion | Go1, Go2, Spot, Spot + arm | Go2 analytic trot through position servos |
 | Navigation | Husky (CAD meshes), TurtleBot3 | BFS path + wheel-velocity following in a maze |
 
@@ -51,6 +52,14 @@ Overlays (toggle in **View**): contact-force arrows, wrist-camera RGB, tracked E
   <tr>
     <td align="center">ALOHA · two-arm pick & place</td>
     <td align="center">Husky · maze on mixed terrain, ego camera</td>
+  </tr>
+  <tr>
+    <td><img src="docs/assets/franka-plug.png" alt="Franka inserting a plug into a kettle socket"></td>
+    <td><img src="docs/assets/franka-cable.png" alt="Franka routing a cable end into a clip"></td>
+  </tr>
+  <tr>
+    <td align="center">Franka · plug insertion, 2.5 mm clearance</td>
+    <td align="center">Franka · cable chain routed into a clip</td>
   </tr>
 </table>
 

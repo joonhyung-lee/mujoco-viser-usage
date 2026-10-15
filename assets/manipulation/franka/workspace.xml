@@ -7,11 +7,11 @@
   <worldbody>
     <light pos="0 0 8" dir="0 0 -1" directional="true" />
     <geom name="floor" type="plane" size="15 15 .1" pos="0 0 -0.75" rgba=".72 .76 .80 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
-    <geom name="object_table" type="box" size=".72 .55 .045" pos=".15 0 -.045" rgba=".55 .58 .63 1" />
-    <geom type="box" size=".035 .035 .35" pos="-0.45 -0.43 -.4" rgba=".18 .2 .23 1" />
-    <geom type="box" size=".035 .035 .35" pos="-0.45 0.43 -.4" rgba=".18 .2 .23 1" />
-    <geom type="box" size=".035 .035 .35" pos="0.75 -0.43 -.4" rgba=".18 .2 .23 1" />
-    <geom type="box" size=".035 .035 .35" pos="0.75 0.43 -.4" rgba=".18 .2 .23 1" />
+    <geom name="object_table" type="box" size=".55 .45 .045" pos=".3 0 -.045" rgba=".55 .58 .63 1" />
+    <geom type="box" size=".035 .035 .35" pos="-0.2 -0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="-0.2 0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="0.8 -0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="0.8 0.38 -.4" rgba=".18 .2 .23 1" />
     <body name="object_0" pos="0.48 -0.16 0.035">
       <freejoint />
       <geom type="box" size=".025 .025 .03" mass=".05" rgba=".95 .97 1 .72" friction="1 .01 .001" />

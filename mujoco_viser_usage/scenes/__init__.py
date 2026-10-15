@@ -29,6 +29,18 @@ SCENES = (
         "Franka Panda · tabletop objects · manual joints",
     ),
     Scene(
+        "manipulation/franka_plug",
+        ROOT / "manipulation/franka/plug.xml",
+        "Franka Panda · plug insertion · 2.5 mm clearance",
+        "franka_plug",
+    ),
+    Scene(
+        "manipulation/franka_cable",
+        ROOT / "manipulation/franka/cable.xml",
+        "Franka Panda · cable-end routing into a clip",
+        "franka_cable",
+    ),
+    Scene(
         "manipulation/aloha",
         ROOT / "manipulation/aloha/workspace.xml",
         "ALOHA · two arms · contact-based pick & place",

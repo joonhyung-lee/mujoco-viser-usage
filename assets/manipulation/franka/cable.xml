@@ -1,0 +1,84 @@
+<mujoco model="franka_cable">
+  <include file="franka.xml" />
+  <statistic center="0.45 0.05 0.05" extent="1.0" />
+  <visual>
+    <headlight ambient=".35 .35 .35" diffuse=".6 .6 .6" />
+  </visual>
+  <worldbody>
+    <light pos="0 0 8" dir="0 0 -1" directional="true" />
+    <geom name="floor" type="plane" size="15 15 .1" pos="0 0 -0.75" rgba=".72 .76 .80 1" friction=".9 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="object_table" type="box" size=".55 .45 .045" pos=".3 0 -.045" rgba=".55 .58 .63 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom type="box" size=".035 .035 .35" pos="-0.2 -0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="-0.2 0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="0.8 -0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom type="box" size=".035 .035 .35" pos="0.8 0.38 -.4" rgba=".18 .2 .23 1" />
+    <geom name="kettle" type="cylinder" pos="0.58 0.38 0.08" size=".055 .08" rgba=".82 .84 .86 1" />
+    <geom type="box" pos="0.58 0.45 0.1" size=".012 .02 .03" rgba=".2 .2 .22 1" />
+    <body name="cable_0" pos="0.58 0.3 0.005">
+      <joint name="cable_0" type="ball" damping=".002" stiffness=".02" />
+      <geom name="cable_0" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+      <body name="cable_1" pos="-0.03 0 0">
+        <joint name="cable_1" type="ball" damping=".002" stiffness=".02" />
+        <geom name="cable_1" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+        <body name="cable_2" pos="-0.03 0 0">
+          <joint name="cable_2" type="ball" damping=".002" stiffness=".02" />
+          <geom name="cable_2" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+          <body name="cable_3" pos="-0.03 0 0">
+            <joint name="cable_3" type="ball" damping=".002" stiffness=".02" />
+            <geom name="cable_3" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+            <body name="cable_4" pos="-0.03 0 0">
+              <joint name="cable_4" type="ball" damping=".002" stiffness=".02" />
+              <geom name="cable_4" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+              <body name="cable_5" pos="-0.03 0 0">
+                <joint name="cable_5" type="ball" damping=".002" stiffness=".02" />
+                <geom name="cable_5" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                <body name="cable_6" pos="-0.03 0 0">
+                  <joint name="cable_6" type="ball" damping=".002" stiffness=".02" />
+                  <geom name="cable_6" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                  <body name="cable_7" pos="-0.03 0 0">
+                    <joint name="cable_7" type="ball" damping=".002" stiffness=".02" />
+                    <geom name="cable_7" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                    <body name="cable_8" pos="-0.03 0 0">
+                      <joint name="cable_8" type="ball" damping=".002" stiffness=".02" />
+                      <geom name="cable_8" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                      <body name="cable_9" pos="-0.03 0 0">
+                        <joint name="cable_9" type="ball" damping=".002" stiffness=".02" />
+                        <geom name="cable_9" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                        <body name="cable_10" pos="-0.03 0 0">
+                          <joint name="cable_10" type="ball" damping=".002" stiffness=".02" />
+                          <geom name="cable_10" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                          <body name="cable_11" pos="-0.03 0 0">
+                            <joint name="cable_11" type="ball" damping=".002" stiffness=".02" />
+                            <geom name="cable_11" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                            <body name="cable_12" pos="-0.03 0 0">
+                              <joint name="cable_12" type="ball" damping=".002" stiffness=".02" />
+                              <geom name="cable_12" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                              <body name="cable_13" pos="-0.03 0 0">
+                                <joint name="cable_13" type="ball" damping=".002" stiffness=".02" />
+                                <geom name="cable_13" type="capsule" fromto="0 0 0 -0.03 0 0" size="0.004" mass=".004" rgba=".15 .15 .17 1" friction=".6 .01 .001" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                                <body name="cable_end" pos="-0.041999999999999996 0 0.008">
+                                  <joint name="cable_end" type="ball" damping=".002" stiffness=".02" />
+                                  <geom name="cable_plug" type="box" size=".018 .012 .012" mass=".03" rgba=".95 .97 1 .9" condim="6" friction="1 .02 .01" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <geom name="clip_y0" type="box" pos="0.38 -0.005999999999999998 0.015" size=".03 .008 .015" rgba=".2 .2 .22 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <geom name="clip_y1" type="box" pos="0.38 0.046 0.015" size=".03 .008 .015" rgba=".2 .2 .22 1" priority="2" solref=".004 1" solimp=".99 .99 .001" />
+    <site name="clip_center" pos="0.38 0.02 0.012" size=".004" rgba="1 .4 .2 .6" />
+  </worldbody>
+  <keyframe>
+    <key name="home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853 0.04 0.04 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0" ctrl="0 0 0 -1.57079 0 1.57079 -0.7853 255" />
+  </keyframe>
+</mujoco>

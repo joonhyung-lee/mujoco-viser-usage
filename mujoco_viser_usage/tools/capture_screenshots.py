@@ -30,6 +30,8 @@ def select_scene(page, label):
 SHOTS = [
     ("pick-place", APP + ["manipulation/ur5e", "--demo"], 13, None),
     ("aloha", APP + ["manipulation/aloha", "--demo"], 22, None),
+    ("franka-plug", APP + ["manipulation/franka_plug", "--demo"], 12, None),
+    ("franka-cable", APP + ["manipulation/franka_cable", "--demo"], 12, None),
     ("husky-maze", APP + ["navigation/husky_mixed", "--demo"], 45, None),
     ("rl-dashboard", DASHBOARD, 8, None),
     ("rl-go2", DASHBOARD, 4, lambda page: select_scene(page, "Go2 · walk")),

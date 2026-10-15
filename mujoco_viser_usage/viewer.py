@@ -155,6 +155,7 @@ class PhysicsViewer:
                 "/goal_label", "GOAL", position=(*points[-1, :2], 0.18)
             )
         self._scene_center = model.stat.center.copy()
+        self._extent = float(model.stat.extent)
         self._show_contacts = False
         self.contact_points = server.scene.add_point_cloud(
             "/contacts",
@@ -189,7 +190,8 @@ class PhysicsViewer:
             target, position = (0.35, 0.0, 0.8), (2.2, 1.9, 1.8)
         else:
             target = self._scene_center
-            position = target + (1.8, 1.8, 1.5)
+            # Scenes declare <statistic extent>; 2 m keeps the previous framing.
+            position = target + np.array((1.8, 1.8, 1.5)) * self._extent / 2
         # Position first: Viser translates the orbit target when position changes.
         client.camera.position = position
         client.camera.look_at = target

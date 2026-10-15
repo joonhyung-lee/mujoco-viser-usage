@@ -197,17 +197,20 @@ for name, source, robot in (
     root = ET.Element("mujoco", model=name + "_workspace")
     add(root, "include", file="task_robot.xml")
     wb = environment(root, floor=-0.75)
+    # ALOHA arms sit at x = +-0.469 on the upstream 1.22 x 0.74 m table, centered.
+    # Franka stands at the origin, so its table extends forward.
+    aloha = name == "aloha"
     add(
         wb,
         "geom",
         name="object_table",
         type="box",
-        size=".72 .55 .045",
-        pos=".15 0 -.045",
+        size=".61 .37 .045" if aloha else ".72 .55 .045",
+        pos="0 0 -.045" if aloha else ".15 0 -.045",
         rgba=".55 .58 .63 1",
     )
-    for x in (-0.45, 0.75):
-        for y in (-0.43, 0.43):
+    for x in (-0.55, 0.55) if aloha else (-0.45, 0.75):
+        for y in (-0.32, 0.32) if aloha else (-0.43, 0.43):
             add(
                 wb,
                 "geom",

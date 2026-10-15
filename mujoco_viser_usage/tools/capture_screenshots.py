@@ -36,7 +36,16 @@ SHOTS = [
     ("husky-maze", APP + ["navigation/husky_mixed", "--demo"], 45, None),
     ("rl-dashboard", DASHBOARD, 8, None),
     ("rl-go2", DASHBOARD, 4, lambda page: select_scene(page, "Go2 · walk")),
+    ("sgs-sampler", DASHBOARD, 4, lambda page: open_sampler(page)),
 ]
+
+
+def open_sampler(page):
+    select_scene(page, "Franka · insert")
+    for folder in ("Training", "Sampler"):  # Sampler sits inside Training
+        page.get_by_text(folder, exact=True).click()
+        page.wait_for_timeout(600)
+    page.wait_for_timeout(1500)
 
 
 def latest(pattern):

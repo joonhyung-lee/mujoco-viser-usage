@@ -61,41 +61,50 @@ rate per strategy over training, from `sampler.jsonl`.
 
 ## Results
 
-Pilot, `rod_16`, sparse reward, 512 configurations, 8 workers, 600k steps, one seed.
-Held-out: 60 fresh configurations, 20 per strategy.
+Two pilots on `rod_16`, sparse reward, N = 512, 8 workers, one seed each. Held-out: 60 fresh
+configurations, 20 per strategy, Wilson 95% intervals.
 
-| Sampler | Held-out all | Near goal | Hovering | Reaching | Training success, last 20% |
+| Steps | Sampler | Held-out all | Near goal | Hovering | Reaching |
 | --- | --- | --- | --- | --- | --- |
-| Uniform | 4/60 (CI 0.03–0.16) | 4/20 | 0/20 | 0/20 | 0.20 |
-| SGS (t 0.5, κ 1, T 2, H 20) | 4/60 (CI 0.03–0.16) | 4/20 | 0/20 | 0/20 | 0.34 |
+| 0.6M | Uniform | 4/60 (0.03–0.16) | 4/20 | 0/20 | 0/20 |
+| 0.6M | SGS, κ = 1 | 4/60 (0.03–0.16) | 4/20 | 0/20 | 0/20 |
+| 1.5M | Uniform | 15/60 (0.16–0.37) | 8/20 | 6/20 | 1/20 |
+| 1.5M | SGS, κ = 5 | 14/60 (0.14–0.35) | 7/20 | 7/20 | 0/20 |
 
-Where the data went (sampler state at the end of the SGS run):
+Where the data went at the end of the 1.5M-step runs (share of resets, training success
+on the buffer):
 
-| Configurations | Share of resets | Success rate |
-| --- | --- | --- |
-| Near goal, fraction 0–0.3 (part already in the hole) | 0.11 | 0.94 |
-| Near goal, 0.3–0.6 (chamfer zone) | 0.15 | 0.21 |
-| Near goal, 0.6–1.1 | 0.15 | 0.09 |
-| Hovering | 0.46 | 0.13 |
-| Reaching | 0.13 | 0.00 |
+| Configurations | Uniform share | Uniform success | SGS κ = 5 share | SGS success |
+| --- | --- | --- | --- | --- |
+| Near goal, fraction 0–0.3 (part already in the hole) | 0.11 | 0.92 | 0.03 | 0.96 |
+| Near goal, 0.3–0.6 (chamfer zone) | 0.09 | 0.44 | 0.13 | 0.53 |
+| Near goal, 0.6–1.1 | 0.13 | 0.35 | 0.23 | 0.39 |
+| Hovering | 0.33 | 0.33 | 0.55 | 0.40 |
+| Reaching | 0.33 | 0.00 | 0.06 | 0.00 |
 
-Uniform keeps 0.33 per strategy by construction.
+Training success over the run, by start strategy (rolling sixths of the episodes):
 
-Reading: SGS did what the formula says. Reaching, never solved, dropped from a third of
-the resets to an eighth; the chamfer zone and hovering starts got the data. The higher
-training success is a distribution effect, not a better policy: on fresh configurations
-both policies seat the part only when it starts inside the hole, and neither inserts from
-a hover, which the dense-reward hovering-only policy in the README does 10/10.
+| | Near goal | Hovering | Reaching |
+| --- | --- | --- | --- |
+| Uniform | 0.35 → 0.75 | 0.14 → 0.51 | 0.00 → 0.00 |
+| SGS κ = 5 | 0.40 → 0.74 | 0.18 → 0.71 | 0.00 → 0.01 |
 
-So 600k sparse-reward steps on 8 CPU workers is below the budget where any sampler
-matters, which is consistent with the paper's own tables: at 4K environments SGS and
-uniform are both near zero on assembly. With `κ = 1, T = 2` the frontier is weighted only
-about 7× over solved or unsolved configurations, so with `N = 512` the sampler stays close
-to uniform. The next experiment is the one that can separate the two:
+Reading:
 
-- `κ = 5` (the paper's locomotion value), which sharpens the kernel enough to matter at
-  this `N`;
-- 2M steps, three seeds per sampler, uniform / linear / SGS;
-- evaluation on 60 held-out configurations per checkpoint, Wilson 95% intervals.
+- The sampler does what the formula says. With κ = 5 it takes resets away from the two
+  ends, seated starts (solved) and reaching (never solved), and hands them to hovering and
+  the upper half of the insertion path. Reaching falls from a third of all resets to 6%.
+- At 0.6M steps nothing is learned from a hover by either policy; at 1.5M both insert
+  from a hover about a third of the time, and the held-out intervals overlap completely.
+  SGS's higher training success on hovering starts (0.71 vs 0.51) does not carry to fresh
+  hovering configurations (7/20 vs 6/20): the buffer configurations it keeps revisiting are
+  the ones it has learned, which is the mastered end of the kernel showing up at N = 512.
+- Reaching stays at zero for both. Nothing in 1.5M sparse-reward steps discovers
+  grasp, lift, carry, and insert in sequence; this is the part of the paper that lives at
+  the 2^20-environment scale and is not reproduced here.
 
-That is roughly six hours of CPU on this machine; it has not been run yet.
+So, on this budget: no measurable difference between SGS and uniform on held-out
+configurations, with one seed, which is consistent with the paper's own small-scale rows.
+What would move it: three seeds per sampler, the linear curriculum as the third arm, and a
+budget where reaching starts to succeed at all (an order of magnitude more steps, or the
+mjlab backend on a GPU). The code is ready for that; the compute is not spent yet.

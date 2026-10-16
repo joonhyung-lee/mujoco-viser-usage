@@ -114,8 +114,9 @@ since gained a gripper action, so reproducing them means retraining.
 
 The same environment also runs the sampler from *A Balanced Data Diet* (Success-Guided
 Sampling, CoRL 2026) over a fixed buffer of start configurations with the paper's sparse
-reward. At 1.5M CPU steps SGS and uniform sampling tie on held-out starts (14/60 vs 15/60)
-while SGS visibly redistributes the resets; [docs/sgs.md](docs/sgs.md) has the tables.
+reward. Over three seeds at 1.5M CPU steps, held-out success is 0.17 with uniform resets,
+0.39 with SGS, and 0.44 with a hand-made linear curriculum; SGS gets there without knowing
+the task. [docs/sgs.md](docs/sgs.md) has the tables.
 
 <p align="center">
   <img src="docs/assets/sgs-sampler.png" width="100%" alt="RL dashboard with the Sampler panel: per-strategy sampling share and success rate over training">

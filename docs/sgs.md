@@ -61,50 +61,50 @@ rate per strategy over training, from `sampler.jsonl`.
 
 ## Results
 
-Two pilots on `rod_16`, sparse reward, N = 512, 8 workers, one seed each. Held-out: 60 fresh
-configurations, 20 per strategy, Wilson 95% intervals.
+`rod_16`, sparse reward, N = 512 configurations, 8 workers, 1.5M steps. Three seeds per
+sampler (the buffer is regenerated from the seed). Held-out: 60 fresh configurations,
+20 per strategy, the same set for every run. Pooled Wilson 95% intervals.
 
-| Steps | Sampler | Held-out all | Near goal | Hovering | Reaching |
-| --- | --- | --- | --- | --- | --- |
-| 0.6M | Uniform | 4/60 (0.03–0.16) | 4/20 | 0/20 | 0/20 |
-| 0.6M | SGS, κ = 1 | 4/60 (0.03–0.16) | 4/20 | 0/20 | 0/20 |
-| 1.5M | Uniform | 15/60 (0.16–0.37) | 8/20 | 6/20 | 1/20 |
-| 1.5M | SGS, κ = 5 | 14/60 (0.14–0.35) | 7/20 | 7/20 | 0/20 |
+| Sampler | Per seed, /60 | Pooled | Near goal | Hovering | Reaching | Episodes per run |
+| --- | --- | --- | --- | --- | --- | --- |
+| Uniform | 15, 6, 10 | 0.17 (0.12–0.23) | 0.38 | 0.12 | 0.02 | ~9.7k |
+| Linear curriculum | 27, 22, 30 | 0.44 (0.37–0.51) | 0.67 | 0.65 | 0.00 | ~20.7k |
+| SGS (t 0.5, κ 5, T 2, H 20) | 14, 26, 31 | 0.39 (0.33–0.47) | 0.57 | 0.62 | 0.00 | ~12k |
 
-Where the data went at the end of the 1.5M-step runs (share of resets, training success
-on the buffer):
+An earlier pilot at 0.6M steps with κ = 1 gave 4/60 for both uniform and SGS: below the
+budget where any sampler matters.
 
-| Configurations | Uniform share | Uniform success | SGS κ = 5 share | SGS success |
-| --- | --- | --- | --- | --- |
-| Near goal, fraction 0–0.3 (part already in the hole) | 0.11 | 0.92 | 0.03 | 0.96 |
-| Near goal, 0.3–0.6 (chamfer zone) | 0.09 | 0.44 | 0.13 | 0.53 |
-| Near goal, 0.6–1.1 | 0.13 | 0.35 | 0.23 | 0.39 |
-| Hovering | 0.33 | 0.33 | 0.55 | 0.40 |
-| Reaching | 0.33 | 0.00 | 0.06 | 0.00 |
+Where the data went at the end of a 1.5M-step SGS run (seed 12; share of resets, training
+success on the buffer):
 
-Training success over the run, by start strategy (rolling sixths of the episodes):
-
-| | Near goal | Hovering | Reaching |
+| Configurations | Uniform share | SGS share | SGS success |
 | --- | --- | --- | --- |
-| Uniform | 0.35 → 0.75 | 0.14 → 0.51 | 0.00 → 0.00 |
-| SGS κ = 5 | 0.40 → 0.74 | 0.18 → 0.71 | 0.00 → 0.01 |
+| Near goal, fraction 0–0.3 (part already in the hole) | 0.11 | 0.03 | 0.96 |
+| Near goal, 0.3–0.6 (chamfer zone) | 0.09 | 0.13 | 0.53 |
+| Near goal, 0.6–1.1 | 0.13 | 0.23 | 0.39 |
+| Hovering | 0.33 | 0.55 | 0.40 |
+| Reaching | 0.33 | 0.06 | 0.00 |
 
 Reading:
 
-- The sampler does what the formula says. With κ = 5 it takes resets away from the two
-  ends, seated starts (solved) and reaching (never solved), and hands them to hovering and
-  the upper half of the insertion path. Reaching falls from a third of all resets to 6%.
-- At 0.6M steps nothing is learned from a hover by either policy; at 1.5M both insert
-  from a hover about a third of the time, and the held-out intervals overlap completely.
-  SGS's higher training success on hovering starts (0.71 vs 0.51) does not carry to fresh
-  hovering configurations (7/20 vs 6/20): the buffer configurations it keeps revisiting are
-  the ones it has learned, which is the mastered end of the kernel showing up at N = 512.
-- Reaching stays at zero for both. Nothing in 1.5M sparse-reward steps discovers
-  grasp, lift, carry, and insert in sequence; this is the part of the paper that lives at
-  the 2^20-environment scale and is not reproduced here.
+- **Where episodes reset decides what gets learned.** Same PPO, reward, and step budget;
+  the sampler alone moves held-out success from 0.17 to 0.39–0.44. The uniform interval
+  does not overlap either of the others.
+- **SGS and the hand-made curriculum tie.** Their intervals overlap (0.33–0.47 vs
+  0.37–0.51). The linear schedule encodes knowledge of this task: start seated, widen the
+  insertion fraction, then add hovering and reaching. SGS has none of that and gets to the
+  same place by reading success rates, which is the paper's argument for it. It pays for
+  the discovery: with N = 512 and H = 20 its estimates are noisy, and its kernel also
+  discounts the seated starts that are the only early positive signal, so it reaches its
+  final distribution later than the schedule does.
+- **Episode count is the mechanism.** Near-goal starts end quickly, so the linear run saw
+  about twice as many episodes as the uniform run in the same number of steps, and
+  therefore about twice as many terminal rewards. SGS lands in between.
+- **Reaching stays at zero for all three.** Grasp, lift, carry, and insert under a sparse
+  reward is not discovered in 1.5M steps by any sampler. That is the regime the paper
+  reaches with 2^20 environments and is not reproduced here.
+- **The paper's "linear stalls at scale" is outside this range.** It appears from tens of
+  thousands of environments; these runs use 8.
 
-So, on this budget: no measurable difference between SGS and uniform on held-out
-configurations, with one seed, which is consistent with the paper's own small-scale rows.
-What would move it: three seeds per sampler, the linear curriculum as the third arm, and a
-budget where reaching starts to succeed at all (an order of magnitude more steps, or the
-mjlab backend on a GPU). The code is ready for that; the compute is not spent yet.
+Single-run variance is large (uniform 6–15, SGS 14–31 of 60), so three seeds support the
+ordering, not the exact ratios.
